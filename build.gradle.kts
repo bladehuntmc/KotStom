@@ -1,8 +1,8 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    kotlin("jvm") version "1.7.22"
+    kotlin("jvm") version "1.9.22"
     // Kotlinx serialization for any data format
-    kotlin("plugin.serialization") version "1.7.22"
+    kotlin("plugin.serialization") version "1.9.22"
     // Shade the plugin
     id("com.github.johnrengelman.shadow") version "7.1.2"
     // Allow publishing
@@ -11,7 +11,7 @@ plugins {
     // Apply the application plugin to add support for building a jar
     java
     // Dokka documentation w/ kotlin
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 
@@ -33,22 +33,22 @@ dependencies {
     // Use the Kotlin reflect library.
     compileOnly("org.jetbrains.kotlin:kotlin-reflect:1.7.22")
 
-    // Use the kotlin test library
-    testImplementation("io.kotest:kotest-assertions-core:5.5.4")
-    testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
-
     // Add support for kotlinx courotines
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
 
     // Compile Minestom into project
     compileOnly("io.github.jglrxavpok.hephaistos", "common", "2.5.3")
-    compileOnly("com.github.Minestom", "Minestom", "4eec3d10a3")
+    compileOnly("net.minestom", "minestom-snapshots", "7320437640")
 
     // import kotlinx serialization
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     // Add MiniMessage
-    implementation("net.kyori:adventure-text-minimessage:4.12.0")
+    api("net.kyori:adventure-text-minimessage:4.16.0")
+
+    // Use the kotlin test library
+    testImplementation("io.kotest:kotest-assertions-core:5.8.1")
+    testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -66,7 +66,6 @@ tasks {
         archiveBaseName.set("kstom")
         mergeServiceFiles()
         minimize()
-
     }
 
     withType<Test> { useJUnitPlatform() }
