@@ -3,15 +3,13 @@ package world.cepi.kstom.serializer
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.contextual
 import net.kyori.adventure.text.Component
 import net.minestom.server.instance.block.Block
 import net.minestom.server.item.Material
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Disabled
-import world.cepi.kstom.item.*
+import world.cepi.kstom.item.and
+import world.cepi.kstom.item.get
+import world.cepi.kstom.item.item
+import world.cepi.kstom.item.set
 
 class ItemStackSerializerTest : StringSpec({
     @OptIn(kotlin.time.ExperimentalTime::class)
