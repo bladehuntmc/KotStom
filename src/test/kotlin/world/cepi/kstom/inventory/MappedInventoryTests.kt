@@ -31,10 +31,10 @@ class MappedInventoryTests: StringSpec ({
         val inventory = Inventory(InventoryType.CHEST_4_ROW, Component.empty())
         inventory.mapItemStacks(shape, map)
 
-        inventory[0..8].all { it.material == Material.FEATHER } shouldBe true
-        inventory[9..17].all { it.material == Material.LEATHER } shouldBe true
-        inventory[18..20].all { it.material == Material.ARROW } shouldBe true
-        inventory[21..26].all { it.material == Material.AIR } shouldBe true
-        inventory[27..35].all { it.material == Material.RED_CONCRETE } shouldBe true
+        inventory[0..8].all { it.material() == Material.FEATHER } shouldBe true
+        inventory[9..17].all { it.material() == Material.LEATHER } shouldBe true
+        inventory[18..20].all { it.material() == Material.ARROW } shouldBe true
+        inventory[21..26].all { it.material() == Material.AIR } shouldBe true
+        inventory[27..35].all { it.material() == Material.RED_CONCRETE } shouldBe true
     }
 })

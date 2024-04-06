@@ -77,7 +77,7 @@ fun argumentFromClass(
 
     return when (clazz) {
         String::class -> if (isLast)
-            ArgumentType.StringArray(name).map { it.joinToString(" ") }
+            ArgumentType.StringArray(name).map { values -> values.joinToString(" ") }
         else
             ArgumentType.String(name)
         Int::class -> ArgumentType.Integer(name).also { argument ->
@@ -146,9 +146,9 @@ fun argumentFromClass(
         }
         Point::class -> ArgumentType.RelativeVec3(name)
         CommandResult::class -> ArgumentType.Command(name)
-        PotionEffect::class -> ArgumentType.Potion(name).also { argument ->
+        PotionEffect::class -> ArgumentType.Resource(name, "potion").also { argument ->
             annotations.filterIsInstance<DefaultPotionEffect>().firstOrNull()
-                ?.let { argument.defaultValue(PotionEffect.fromNamespaceId(it.potionEffect)) }
+                ?.let { argument.defaultValue(PotionEffect.fromNamespaceId(it.potionEffect)!!.name()) }
         }
         UUID::class -> ArgumentType.UUID(name)
         else -> {

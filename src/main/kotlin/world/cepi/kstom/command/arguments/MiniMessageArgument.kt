@@ -3,7 +3,7 @@ package world.cepi.kstom.command.arguments
 import net.kyori.adventure.text.format.NamedTextColor
 import net.minestom.server.command.builder.arguments.ArgumentType
 import net.minestom.server.command.builder.suggestion.SuggestionEntry
-import world.cepi.kstom.adventure.asMini
+import world.cepi.kstom.util.asMini
 
 object MiniMessageArgument {
     private val contentRegex = Regex("(?<=<)[A-z1-9#:]+\$")
@@ -25,8 +25,8 @@ object MiniMessageArgument {
         "font"
     )
 
-    val vararg = ArgumentType.StringArray("message").map {
-        it.joinToString(" ").asMini()
+    val vararg = ArgumentType.StringArray("message").map { values: Array<String> ->
+        values.joinToString(" ").asMini()
     }.let { argument ->
         argument.setSuggestionCallback { _, _, suggestion ->
             val input = suggestion.input
@@ -75,7 +75,7 @@ object MiniMessageArgument {
         }
     }
 
-    fun single(id: String) = ArgumentType.String(id).map {
-        it.asMini()
+    fun single(id: String) = ArgumentType.String(id).map { value: String ->
+        value.asMini()
     }
 }

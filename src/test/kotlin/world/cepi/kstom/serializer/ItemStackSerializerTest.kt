@@ -35,6 +35,6 @@ class ItemStackSerializerTest : StringSpec({
             this["item"] = item
         }
 
-        itemWithItem.meta.get("item", serializer = ItemStackSerializer) shouldBe item
+        itemWithItem.meta().get("item", serializer = ItemStackSerializer) shouldBe item
     }
 })

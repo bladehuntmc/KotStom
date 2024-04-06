@@ -2,7 +2,7 @@ package world.cepi.kstom.item
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import world.cepi.kstom.adventure.asMini
+import world.cepi.kstom.util.asMini
 
 class KLore internal constructor(private val tagResolver: TagResolver = TagResolver.empty()) {
 
