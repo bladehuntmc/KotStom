@@ -6,7 +6,10 @@ import net.minestom.server.scoreboard.Sidebar
 import net.minestom.server.scoreboard.Sidebar.ScoreboardLine
 
 
-class KSidebar(title: Component, val internalSidebar: Sidebar = Sidebar(title)): Viewable by internalSidebar {
+class KSidebar(
+    title: Component,
+    val sidebar: Sidebar = Sidebar(title)
+): Viewable by sidebar {
 
     inline fun line(id: String, index: Int, generationalLambda: () -> Component) = line(id, index, generationalLambda())
 
@@ -15,11 +18,11 @@ class KSidebar(title: Component, val internalSidebar: Sidebar = Sidebar(title)):
     fun emptyLine(id: String, index: Int) = line(id, index, Component.empty())
 
     fun add(vararg lines: ScoreboardLine) = lines.forEach { line ->
-        internalSidebar.createLine(line)
+        sidebar.createLine(line)
     }
 
     fun refresh(vararg lines: ScoreboardLine) = lines.forEach { line ->
-        internalSidebar.updateLineContent(line.id, line.content)
+        sidebar.updateLineContent(line.id, line.content)
     }
 }
 

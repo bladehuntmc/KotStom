@@ -1,16 +1,12 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
 import net.minestom.server.coordinate.Vec
 
-@Serializer(forClass = Vec::class)
-@OptIn(ExperimentalSerializationApi::class)
 object VectorSerializer : KSerializer<Vec> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Vector") {
         element<Double>("x")

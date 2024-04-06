@@ -14,3 +14,4 @@ class TagDelegate<T>(private val tag: Tag<T>) {
         thisRef?.setTag(tag, value)
     }
 }
+fun <T> Tag<T>.delegated(): TagDelegate<T> = TagDelegate(this)

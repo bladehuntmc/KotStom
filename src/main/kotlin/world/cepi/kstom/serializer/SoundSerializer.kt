@@ -2,17 +2,13 @@ package world.cepi.kstom.serializer
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
-import java.lang.Exception
 
-@Serializer(forClass = Sound::class)
-@OptIn(ExperimentalSerializationApi::class)
 object SoundSerializer : KSerializer<Sound> {
     override val descriptor: SerialDescriptor =
         buildClassSerialDescriptor("Sound") {

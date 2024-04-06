@@ -1,8 +1,6 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
@@ -11,8 +9,6 @@ import net.minestom.server.coordinate.Pos
 import net.minestom.server.coordinate.Vec
 import net.minestom.server.utils.location.RelativeVec
 
-@Serializer(forClass = RelativeVec::class)
-@OptIn(ExperimentalSerializationApi::class)
 object RelativeVecSerializer : KSerializer<RelativeVec> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Vector") {
         element<Vec>("vec")

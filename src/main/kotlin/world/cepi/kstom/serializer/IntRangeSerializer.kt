@@ -1,16 +1,12 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
 import net.minestom.server.utils.math.IntRange
 
-@Serializer(forClass = IntRange::class)
-@OptIn(ExperimentalSerializationApi::class)
 object IntRangeSerializer : KSerializer<IntRange> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("IntRange") {
         element<Int>("min")

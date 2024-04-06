@@ -12,8 +12,6 @@ import net.minestom.server.utils.NamespaceID
 import org.jglrxavpok.hephaistos.nbt.NBT
 import org.jglrxavpok.hephaistos.nbt.NBTCompound
 
-@Serializer(forClass = Block::class)
-@OptIn(ExperimentalSerializationApi::class)
 object BlockSerializer : KSerializer<Block> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Block") {
         element("namespace", NamespaceIDSerializer.descriptor)

@@ -1,5 +1,6 @@
 package world.cepi.kstom.command.arguments
 
+import net.minestom.server.command.CommandSender
 import net.minestom.server.command.builder.arguments.Argument
 import net.minestom.server.command.builder.arguments.ArgumentLiteral
 import net.minestom.server.command.builder.arguments.ArgumentType
@@ -31,8 +32,9 @@ val literal get() = Literal()
 
 fun String.literal() = ArgumentLiteral(this)
 
-fun <T> Argument<T>.defaultValue(value: T): Argument<T> =
-    this.setDefaultValue { value }
+fun <T> Argument<T>.defaultValue(value: T): Argument<T> = apply {
+    setDefaultValue { _: CommandSender -> value }
+}
 
 open class SuggestionIgnoreOption(val modifier: (String) -> String = { it }) {
     object NONE: SuggestionIgnoreOption()

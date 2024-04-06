@@ -30,4 +30,4 @@ fun Entity.eyePosition(): Pos {
     return position.add(0.0, 1.53, 0.0)
 }
 
-fun UUID.asPlayer() = Manager.connection.getPlayer(this)
+fun UUID.getPlayer(): Player? = Manager.connection.getOnlinePlayerByUuid(this)

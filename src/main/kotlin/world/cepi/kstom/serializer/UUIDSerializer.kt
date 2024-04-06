@@ -1,6 +1,5 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
@@ -9,7 +8,6 @@ import kotlinx.serialization.encoding.*
 import java.util.*
 
 object UUIDSerializer : KSerializer<UUID> {
-
     override val descriptor: SerialDescriptor =
         buildClassSerialDescriptor("UUID") {
             element<Long>("least")
@@ -23,7 +21,6 @@ object UUIDSerializer : KSerializer<UUID> {
         }
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override fun deserialize(decoder: Decoder): UUID =
         decoder.decodeStructure(SoundSerializer.descriptor) {
             var least = 0L
@@ -39,5 +36,4 @@ object UUIDSerializer : KSerializer<UUID> {
 
             UUID(least, most)
         }
-
 }

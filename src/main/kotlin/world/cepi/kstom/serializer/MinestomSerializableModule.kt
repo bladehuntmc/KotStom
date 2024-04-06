@@ -2,11 +2,7 @@ package world.cepi.kstom.serializer
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.SerializersModuleBuilder
 import kotlinx.serialization.modules.contextual
-import kotlinx.serialization.modules.polymorphic
-import net.minestom.server.entity.EntityType
-import kotlin.reflect.KClass
 
 val MinestomSerializableModule = SerializersModule {
     contextual(BlockSerializer)

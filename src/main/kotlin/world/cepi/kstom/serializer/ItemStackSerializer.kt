@@ -1,8 +1,6 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
@@ -11,8 +9,6 @@ import net.minestom.server.item.Material
 import org.jglrxavpok.hephaistos.nbt.NBT
 import org.jglrxavpok.hephaistos.nbt.NBTCompound
 
-@Serializer(forClass = ItemStack::class)
-@OptIn(ExperimentalSerializationApi::class)
 object ItemStackSerializer : KSerializer<ItemStack> {
     override val descriptor = buildClassSerialDescriptor("ItemStack") {
         element<String>("material")

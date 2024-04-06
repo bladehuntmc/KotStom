@@ -1,16 +1,12 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
 import java.time.Duration
 
-@Serializer(forClass = Duration::class)
-@OptIn(ExperimentalSerializationApi::class)
 object DurationSerializer : KSerializer<Duration> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("UpdateOption") {
         element<Long>("milliseconds")

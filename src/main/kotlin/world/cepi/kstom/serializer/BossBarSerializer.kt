@@ -2,17 +2,13 @@ package world.cepi.kstom.serializer
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.text.Component
-import net.minestom.server.coordinate.Vec
 
-@Serializer(forClass = BossBar::class)
-@OptIn(ExperimentalSerializationApi::class)
 object BossBarSerializer : KSerializer<BossBar> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("BossBar") {
         element<Component>("name")

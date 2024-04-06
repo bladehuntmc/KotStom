@@ -7,9 +7,6 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.SerializersModuleBuilder
-import kotlinx.serialization.modules.contextual
-import net.minestom.server.instance.block.Block
 import org.jglrxavpok.hephaistos.nbt.*
 import org.jglrxavpok.hephaistos.parser.SNBTParser
 import world.cepi.kstom.serializer.*
@@ -20,8 +17,7 @@ import java.io.StringReader
  *
  * @author CmdrNorthpaw
  */
-@OptIn(ExperimentalSerializationApi::class)
-open class NBTFormat(module: SerializersModule = EmptySerializersModule) {
+open class NBTFormat(module: SerializersModule = EmptySerializersModule()) {
 
     val json = Json {
         serializersModule = module

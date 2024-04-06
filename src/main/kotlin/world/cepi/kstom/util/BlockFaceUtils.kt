@@ -1,4 +1,4 @@
-package world.cepi.kstom.nbt
+package world.cepi.kstom.util
 
 import net.minestom.server.instance.block.Block
 import net.minestom.server.instance.block.BlockFace

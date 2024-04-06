@@ -1,16 +1,12 @@
 package world.cepi.kstom.serializer
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
 import net.minestom.server.coordinate.Pos
 
-@Serializer(forClass = Pos::class)
-@OptIn(ExperimentalSerializationApi::class)
 object PositionSerializer : KSerializer<Pos> {
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("Position") {
         element<Double>("x")

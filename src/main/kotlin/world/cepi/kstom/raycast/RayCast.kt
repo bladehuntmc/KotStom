@@ -3,11 +3,8 @@ package world.cepi.kstom.raycast
 import net.minestom.server.coordinate.Point
 import net.minestom.server.coordinate.Vec
 import net.minestom.server.entity.Entity
-import net.minestom.server.entity.LivingEntity
 import net.minestom.server.instance.Instance
 import world.cepi.kstom.util.Fuzzy
-import world.cepi.kstom.util.blockUtilsAt
-import world.cepi.kstom.util.toExactBlockPosition
 
 /**
  * Ray cast utilities for Minestom.

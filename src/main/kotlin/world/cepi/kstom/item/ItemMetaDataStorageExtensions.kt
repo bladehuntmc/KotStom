@@ -28,7 +28,6 @@ import world.cepi.kstom.serializer.*
 import java.time.Duration
 import kotlin.reflect.KClass
 
-@OptIn(InternalSerializationApi::class)
 operator fun <T: @Serializable Any> TagWritable.set(
     tag: String,
     serializer: KSerializer<T>,

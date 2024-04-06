@@ -2,18 +2,13 @@ package world.cepi.kstom.serializer
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
-import net.kyori.adventure.sound.Sound
 import net.minestom.server.potion.Potion
 import net.minestom.server.potion.PotionEffect
-import kotlin.experimental.and
 
-@Serializer(forClass = Sound::class)
-@OptIn(ExperimentalSerializationApi::class)
 object PotionSerializer : KSerializer<Potion> {
     override val descriptor: SerialDescriptor =
         buildClassSerialDescriptor("Sound") {

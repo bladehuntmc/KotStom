@@ -1,4 +1,4 @@
-package world.cepi.kstom.adventure
+package world.cepi.kstom.util
 
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
