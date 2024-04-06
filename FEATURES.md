@@ -146,14 +146,12 @@ component = component.undecorate(TextDecoration.STRIKETHROUGH)
 `MinestomRunnable`s are an easy way to make tasks running in Minestom's Task Scheduler
 
 ```kotlin
-private val runnable = object : MinestomRunnable(repeat = TaskSchedule.nextTick(), executionType = ExecutionType.SYNC) {
+private val runnable = runnable {
     val text = "This gets executed"
     
     override fun run() {
         println("$text every tick")
     }
-}.also {
-    it.schedule() // <- registers it to Minestom's TickScheduler and starts it
 }
 ```
 

@@ -55,9 +55,12 @@ fun runnable(
     delay: TaskSchedule = TaskSchedule.immediate(),
     repeat: TaskSchedule = TaskSchedule.stop(),
     executionType: ExecutionType = ExecutionType.SYNC,
+    schedule: Boolean = true,
     block: MinestomRunnable.() -> Unit
 ): MinestomRunnable = object : MinestomRunnable(delay, repeat, executionType) {
     override fun run() {
         block()
     }
+}.also {
+    if (schedule) it.schedule()
 }
