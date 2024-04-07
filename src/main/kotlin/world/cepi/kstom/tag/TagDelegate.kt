@@ -5,13 +5,10 @@ import net.minestom.server.tag.TagReadable
 import net.minestom.server.tag.TagWritable
 import kotlin.reflect.KProperty
 
-class TagDelegate<T>(private val tag: Tag<T>) {
-    operator fun getValue(thisRef: TagReadable?, property: KProperty<*>): T? {
-        return thisRef?.getTag(tag)
-    }
-
-    operator fun setValue(thisRef: TagWritable?, property: KProperty<*>, value: T) {
-        thisRef?.setTag(tag, value)
-    }
+operator fun <T> Tag<T>.getValue(thisRef: TagReadable?, property: KProperty<*>): T? {
+    return thisRef?.getTag(this)
 }
-fun <T> Tag<T>.delegated(): TagDelegate<T> = TagDelegate(this)
+
+operator fun <T> Tag<T>.setValue(thisRef: TagWritable?, property: KProperty<*>, value: T) {
+    thisRef?.setTag(this, value)
+}
