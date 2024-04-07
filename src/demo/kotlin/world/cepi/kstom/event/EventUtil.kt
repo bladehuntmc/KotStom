@@ -4,7 +4,7 @@ import net.minestom.server.MinecraftServer
 import net.minestom.server.event.EventListener
 import net.minestom.server.event.entity.EntityTickEvent
 import net.minestom.server.potion.PotionEffect
-import world.cepi.kstom.Manager
+import net.bladehunt.kstom.Manager
 
 fun old() {
     MinecraftServer.getGlobalEventHandler().addListener(EntityTickEvent::class.java) {

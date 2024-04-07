@@ -1,7 +1,7 @@
 package world.cepi.kstom.command
 
 import net.minestom.server.command.builder.Command
-import world.cepi.kstom.Manager
+import net.bladehunt.kstom.Manager
 
 object ShellCommand : Command("shell")
 
