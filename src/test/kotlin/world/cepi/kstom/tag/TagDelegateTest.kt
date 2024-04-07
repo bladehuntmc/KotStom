@@ -9,11 +9,10 @@ import net.minestom.server.item.Material
 import net.minestom.server.tag.Tag
 import world.cepi.kstom.item.item
 
-val ItemStack.canCutTrees by TagDelegate(Tag.Boolean("canCutTreeTag"))
-var Entity.friendlyName by TagDelegate(Tag.String("friendlyName"))
+val ItemStack.canCutTrees by Tag.Boolean("canCutTreeTag")
+var Entity.friendlyName by Tag.String("friendlyName")
 
 class TagDelegateTest : StringSpec({
-
     "getting tag from TagReadable should work" {
         val itemStack = item(Material.WOODEN_AXE) {
             setTag(Tag.Boolean("canCutTreeTag"), true)
@@ -31,5 +30,4 @@ class TagDelegateTest : StringSpec({
 
         entity.getTag(Tag.String("friendlyName")) shouldBe "Zombie Piglin"
     }
-
 })

@@ -35,22 +35,10 @@ class KEventListener<T : Event>(val eventListener: EventListener.Builder<T>) {
         }
 }
 
-inline fun <reified E: Event> EventNode<in E>.listen(lambda: KEventListener<E>.() -> Unit) {
-
-    val kEventListener = KEventListener<E>(EventListener.builder(E::class.java))
-
-    lambda(kEventListener)
-
-    this.addListener(
-        kEventListener.eventListener.build()
-    )
-}
-
-inline fun <reified E: Event> EventNode<in E>.listenOnly(noinline lambda: E.() -> Unit) {
-
-    this.addListener(
-        E::class.java,
-        lambda
-    )
-}
-
+inline fun <reified E: Event> EventNode<in E>.listen(block: KEventListener<E>.() -> Unit): EventNode<in E> = addListener(
+    KEventListener<E>(EventListener.builder(E::class.java)).apply(block).eventListener.build()
+)
+inline fun <reified E: Event> EventNode<in E>.listenOnly(noinline block: E.() -> Unit): EventNode<in E>  = addListener(
+    E::class.java,
+    block
+)

@@ -22,16 +22,16 @@ fun old() {
 }
 
 fun new() {
-    Manager.globalEvent.listenOnly<EntityTickEvent> {
-        entity.removeEffect(PotionEffect.ABSORPTION)
-    }
-
-    Manager.globalEvent.listen<EntityTickEvent> {
-        expireCount = 50
-        removeWhen { entity.isCustomNameVisible }
-        filters += { entity.isGlowing }
-        handler {
-            entity.setGravity(5.0, .5)
+    Manager.globalEvent
+        .listenOnly<EntityTickEvent> {
+            entity.removeEffect(PotionEffect.ABSORPTION)
         }
-    }
+        .listen<EntityTickEvent> {
+            expireCount = 50
+            removeWhen { entity.isCustomNameVisible }
+            filters += { entity.isGlowing }
+            handler {
+                entity.setGravity(5.0, .5)
+            }
+        }
 }

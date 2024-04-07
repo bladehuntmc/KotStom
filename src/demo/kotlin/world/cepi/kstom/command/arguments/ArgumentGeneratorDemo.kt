@@ -4,7 +4,6 @@ import world.cepi.kstom.command.arguments.generation.ClassArgumentGenerator
 import world.cepi.kstom.command.arguments.generation.ClassArgumentGenerator.Companion.syntaxesFrom
 import world.cepi.kstom.command.arguments.generation.annotations.MaxAmount
 import world.cepi.kstom.command.arguments.generation.annotations.MinAmount
-import world.cepi.kstom.command.arguments.generation.argumentsFromClass
 import world.cepi.kstom.command.kommand.Kommand
 
 // The "old" version of this is manually doing it

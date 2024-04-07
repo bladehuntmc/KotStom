@@ -101,5 +101,4 @@ open class Kommand(val k: Kommand.() -> Unit = {}, name: String, vararg aliases:
     fun unregister() {
         Manager.command.unregister(command)
     }
-
 }
