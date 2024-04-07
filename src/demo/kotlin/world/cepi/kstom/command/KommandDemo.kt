@@ -47,7 +47,7 @@ object Old : Command("hey") {
     }
 }
 
-object New : Kommand({
+val new = Kommand({
     val add by literal
     val remove by literal
     val set by literal
@@ -79,6 +79,4 @@ object New : Kommand({
     syntax(set, amount) {
         player.level = !amount
     }.condition { player?.level == 5 } // not realistic but demonstrates custom conditions
-
-
 }, "hey")

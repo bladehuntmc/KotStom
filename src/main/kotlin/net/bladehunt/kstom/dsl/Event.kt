@@ -35,7 +35,7 @@ data class EventBuilder<T : Event>(val clazz: Class<T>) : EventListener.Builder<
 inline fun <reified E: Event> EventNode<in E>.listen(block: @EventDSL EventBuilder<E>.() -> Unit): EventNode<in E> = addListener(
     EventBuilder(E::class.java).apply(block).build()
 )
-inline fun <reified E: Event> EventNode<in E>.listenOnly(noinline block: E.() -> Unit): EventNode<in E> = addListener(
+inline fun <reified E: Event> EventNode<in E>.listenOnly(noinline block: (E) -> Unit): EventNode<in E> = addListener(
     E::class.java,
     block
 )

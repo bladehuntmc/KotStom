@@ -10,4 +10,4 @@ plugins {
 }
 
 rootProject.name = "KStom"
-
+include("example")

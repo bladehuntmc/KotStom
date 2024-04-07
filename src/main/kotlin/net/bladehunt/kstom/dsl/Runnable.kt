@@ -6,7 +6,7 @@ import net.minestom.server.timer.TaskSchedule
 
 @DslMarker
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE)
-annotation class RunnableDsl
+annotation class RunnableDSL
 
 data class RunnableBuilder(
     var delaySchedule: TaskSchedule = TaskSchedule.immediate(),
@@ -14,8 +14,8 @@ data class RunnableBuilder(
     var executionType: ExecutionType = ExecutionType.SYNC,
     private var block: MinestomRunnable.() -> Unit = {}
 ) {
-    @RunnableDsl
-    fun run(block: @RunnableDsl MinestomRunnable.() -> Unit) {
+    @RunnableDSL
+    fun run(block: @RunnableDSL MinestomRunnable.() -> Unit) {
         this.block = block
     }
 
@@ -24,5 +24,5 @@ data class RunnableBuilder(
     }
 }
 
-@RunnableDsl
-inline fun runnable(block: @RunnableDsl RunnableBuilder.() -> Unit): MinestomRunnable = RunnableBuilder().apply(block).build()
+@RunnableDSL
+inline fun runnable(block: @RunnableDSL RunnableBuilder.() -> Unit): MinestomRunnable = RunnableBuilder().apply(block).build()
