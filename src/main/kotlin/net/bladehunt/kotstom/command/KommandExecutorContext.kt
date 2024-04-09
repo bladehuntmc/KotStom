@@ -1,4 +1,4 @@
-package net.bladehunt.kstom.command
+package net.bladehunt.kotstom.command
 
 import net.minestom.server.command.CommandSender
 import net.minestom.server.command.builder.CommandContext

@@ -1,4 +1,4 @@
-package net.bladehunt.kstom.extension
+package net.bladehunt.kotstom.extension
 
 import net.minestom.server.tag.Tag
 import net.minestom.server.tag.TagReadable

@@ -1,7 +1,7 @@
-package net.bladehunt.kstom.dsl.kommand
+package net.bladehunt.kotstom.dsl.kommand
 
-import net.bladehunt.kstom.command.Kommand
-import net.bladehunt.kstom.command.KommandExecutorContext
+import net.bladehunt.kotstom.command.Kommand
+import net.bladehunt.kotstom.command.KommandExecutorContext
 import net.minestom.server.command.builder.CommandExecutor
 import net.minestom.server.command.builder.CommandSyntax
 

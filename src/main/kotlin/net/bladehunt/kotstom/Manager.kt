@@ -1,4 +1,4 @@
-package world.cepi.kstom
+package net.bladehunt.kotstom
 
 import net.minestom.server.MinecraftServer.*
 import net.minestom.server.advancements.AdvancementManager

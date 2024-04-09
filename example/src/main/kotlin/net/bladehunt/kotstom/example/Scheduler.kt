@@ -1,11 +1,11 @@
-package net.bladehunt.kstom.example
+package net.bladehunt.kotstom.example
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import net.bladehunt.kstom.Manager
-import net.bladehunt.kstom.dsl.listenOnly
-import net.bladehunt.kstom.extension.await
+import net.bladehunt.kotstom.Manager
+import net.bladehunt.kotstom.dsl.listenOnly
+import net.bladehunt.kotstom.extension.await
 import net.minestom.server.event.EventNode
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent
 import net.minestom.server.timer.TaskSchedule

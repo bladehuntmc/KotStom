@@ -1,4 +1,4 @@
-package net.bladehunt.kstom.dsl
+package net.bladehunt.kotstom.dsl
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

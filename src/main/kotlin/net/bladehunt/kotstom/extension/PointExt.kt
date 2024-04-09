@@ -1,4 +1,4 @@
-package net.bladehunt.kstom.extension
+package net.bladehunt.kotstom.extension
 
 import net.minestom.server.coordinate.Point
 import net.minestom.server.coordinate.Pos

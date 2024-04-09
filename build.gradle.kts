@@ -32,7 +32,7 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
 }
 
-group = "net.bladehunt.kstom"
+group = "net.bladehunt.kotstom"
 version = "0.1.0-beta"
 
 kotlin {

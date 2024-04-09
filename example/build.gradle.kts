@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "net.bladehunt.kstom"
+group = "net.bladehunt.kotstom"
 version = "1.0.0"
 
 repositories {

@@ -1,4 +1,4 @@
-package net.bladehunt.kstom.extension
+package net.bladehunt.kotstom.extension
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentBuilder

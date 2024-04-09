@@ -1,7 +1,7 @@
-package net.bladehunt.kstom.example
+package net.bladehunt.kotstom.example
 
-import net.bladehunt.kstom.dsl.kommand.buildSyntax
-import net.bladehunt.kstom.dsl.kommand.kommand
+import net.bladehunt.kotstom.dsl.kommand.buildSyntax
+import net.bladehunt.kotstom.dsl.kommand.kommand
 import net.minestom.server.command.builder.arguments.ArgumentStringArray
 
 val ExampleCommand = kommand {

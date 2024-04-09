@@ -1,6 +1,6 @@
-package net.bladehunt.kstom.dsl
+package net.bladehunt.kotstom.dsl
 
-import net.bladehunt.kstom.util.MinestomRunnable
+import net.bladehunt.kotstom.util.MinestomRunnable
 import net.minestom.server.timer.ExecutionType
 import net.minestom.server.timer.TaskSchedule
 
