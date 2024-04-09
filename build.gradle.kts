@@ -78,7 +78,7 @@ publishing {
     }
     repositories {
         maven {
-            url = uri("https://gitlab.com/api/v4/projects/54684809/packages/maven")
+            url = uri("https://gitlab.com/api/v4/projects/56581102/packages/maven")
             credentials(HttpHeaderCredentials::class) {
                 name = "Job-Token"
                 value = properties["CI_JOB_TOKEN"] as String?
