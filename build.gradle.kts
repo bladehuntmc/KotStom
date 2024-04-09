@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.22"
@@ -10,14 +11,36 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.20"
 }
 
-repositories {
-    mavenCentral()
+allprojects {
+    group = "net.bladehunt"
+    version = "0.1.0-beta"
 
-    maven("https://jitpack.io")
-    maven("https://repo.spongepowered.org/maven")
-    maven("https://repo.velocitypowered.com/snapshots/")
+    repositories {
+        mavenCentral()
+
+        maven("https://jitpack.io")
+        maven("https://repo.spongepowered.org/maven")
+        maven("https://repo.velocitypowered.com/snapshots/")
+    }
+
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "17"
+            compilerOptions {
+                freeCompilerArgs.addAll("-Xinline-classes", "-Xcontext-receivers")
+            }
+        }
+    }
 }
 
+subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+}
 
 dependencies {
     compileOnly("io.github.jglrxavpok.hephaistos", "common", "2.5.3")
@@ -32,41 +55,18 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
 }
 
-group = "net.bladehunt.kotstom"
-version = "0.1.0-beta"
-
-kotlin {
-    jvmToolchain(17)
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xinline-classes", "-Xopt-in=kotlin.RequiresOptIn", "-Xcontext-receivers")
-    }
+tasks.named<ShadowJar>("shadowJar") {
+    archiveBaseName = "kotstom"
+    mergeServiceFiles()
+    minimize()
 }
 
-configurations {
-    testImplementation {
-        extendsFrom(configurations.compileOnly.get())
-    }
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
-tasks {
-    named<ShadowJar>("shadowJar") {
-        archiveBaseName = "kotstom"
-        mergeServiceFiles()
-        minimize()
-    }
-
-    withType<Test> {
-        useJUnitPlatform()
-    }
-
-    build {
-        dependsOn(shadowJar)
-    }
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+tasks.build {
+    dependsOn("shadowJar")
 }
 
 publishing {
