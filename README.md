@@ -1,16 +1,3 @@
-# KotStom
-Kotlin extensions & utilities for Minestom
+# This branch is old - Use the main branch
 
-Check out the [Features](./FEATURES.md) or the demo for some of the utilities KotStom has to offer.
-
-## Adding as a dependency
-
-```kotlin
-repositories {
-    maven("https://gitlab.com/api/v4/groups/bladehunt/-/packages/maven")
-}
-
-dependencies {
-    implementation("net.bladehunt:kotstom:0.1.0")
-}
-```
+### This just serves as an archive
