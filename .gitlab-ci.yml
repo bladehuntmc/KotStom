@@ -1,0 +1,30 @@
+image: gradle:8.5.0-jdk17
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+stages:
+  - build
+  - deploy
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+build:
+  stage: build
+  only:
+    - main
+  timeout: 5 m
+  script:
+    - chmod +x ./gradlew
+    - ./gradlew clean assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 6 h
+deploy:
+  stage: deploy
+  needs:
+    - build
+  timeout: 5 m
+  script:
+    - chmod +x ./gradlew
+    - ./gradlew -PCI_JOB_TOKEN=$CI_JOB_TOKEN publish
