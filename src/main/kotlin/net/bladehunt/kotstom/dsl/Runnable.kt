@@ -9,8 +9,8 @@ import net.minestom.server.timer.TaskSchedule
 annotation class RunnableDSL
 
 data class RunnableBuilder(
-    var delaySchedule: TaskSchedule = TaskSchedule.immediate(),
-    var repeatSchedule: TaskSchedule = TaskSchedule.stop(),
+    var delay: TaskSchedule = TaskSchedule.immediate(),
+    var repeat: TaskSchedule = TaskSchedule.stop(),
     var executionType: ExecutionType = ExecutionType.SYNC,
     private var block: MinestomRunnable.() -> Unit = {}
 ) {
@@ -19,7 +19,7 @@ data class RunnableBuilder(
         this.block = block
     }
 
-    fun build(): MinestomRunnable = object : MinestomRunnable(delaySchedule, repeatSchedule, executionType) {
+    fun build(): MinestomRunnable = object : MinestomRunnable(delay, repeat, executionType) {
         override fun run() = block()
     }
 }
