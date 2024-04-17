@@ -1,6 +1,7 @@
 package net.bladehunt.kotstom.util
 
 import net.bladehunt.kotstom.Manager
+import net.bladehunt.kotstom.SchedulerManager
 import net.minestom.server.timer.ExecutionType
 import net.minestom.server.timer.Task
 import net.minestom.server.timer.TaskSchedule
@@ -12,7 +13,7 @@ abstract class MinestomRunnable(
 ) : Runnable {
     private var task: Task? = null
 
-    fun schedule(): Task = Manager.scheduler.buildTask(this).let {
+    fun schedule(): Task = SchedulerManager.buildTask(this).let {
         if (delaySchedule != TaskSchedule.immediate()) it.delay(delaySchedule)
         if (repeatSchedule != TaskSchedule.stop()) it.repeat(repeatSchedule)
         if (executionType != ExecutionType.SYNC) it.executionType(executionType)
