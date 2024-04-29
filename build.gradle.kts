@@ -2,8 +2,8 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.serialization") version "1.9.22"
+    kotlin("jvm") version "1.9.23"
+    kotlin("plugin.serialization") version "1.9.23"
     id("com.github.johnrengelman.shadow") version "7.1.2"
 
     `maven-publish`
@@ -12,8 +12,8 @@ plugins {
 }
 
 allprojects {
-    group = "net.bladehunt"
-    version = "0.1.0-beta.2"
+    group = property("group") ?: "net.bladehunt"
+    version = property("version") ?: "0.1.0"
 
     repositories {
         mavenCentral()
@@ -36,6 +36,10 @@ allprojects {
             }
         }
     }
+}
+
+java {
+    withSourcesJar()
 }
 
 subprojects {
