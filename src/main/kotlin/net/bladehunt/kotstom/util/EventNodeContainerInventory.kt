@@ -1,0 +1,51 @@
+package net.bladehunt.kotstom.util
+
+import net.bladehunt.kotstom.GlobalEventHandler
+import net.bladehunt.kotstom.dsl.listenOnly
+import net.kyori.adventure.text.Component
+import net.minestom.server.event.EventFilter
+import net.minestom.server.event.EventHandler
+import net.minestom.server.event.EventNode
+import net.minestom.server.event.inventory.InventoryButtonClickEvent
+import net.minestom.server.event.inventory.InventoryClickEvent
+import net.minestom.server.event.inventory.InventoryCloseEvent
+import net.minestom.server.event.inventory.InventoryItemChangeEvent
+import net.minestom.server.event.inventory.InventoryOpenEvent
+import net.minestom.server.event.inventory.InventoryPostClickEvent
+import net.minestom.server.event.inventory.InventoryPreClickEvent
+import net.minestom.server.event.trait.InventoryEvent
+import net.minestom.server.inventory.ContainerInventory
+import net.minestom.server.inventory.InventoryType
+
+class EventNodeContainerInventory(
+    inventoryType: InventoryType,
+    title: Component
+) : ContainerInventory(inventoryType, title), EventHandler<InventoryEvent> {
+    private companion object {
+        init {
+            EventNode.type(
+                "EventNodeContainerInventory.Companion.eventNode",
+                EventFilter.INVENTORY
+            ).apply {
+                listenOnly<InventoryPreClickEvent>(Companion::handleEvent)
+                listenOnly<InventoryClickEvent>(Companion::handleEvent)
+                listenOnly<InventoryCloseEvent>(Companion::handleEvent)
+                listenOnly<InventoryOpenEvent>(Companion::handleEvent)
+                listenOnly<InventoryButtonClickEvent>(Companion::handleEvent)
+                listenOnly<InventoryItemChangeEvent>(Companion::handleEvent)
+                listenOnly<InventoryPostClickEvent>(Companion::handleEvent)
+                GlobalEventHandler.addChild(this)
+            }
+        }
+
+        private fun <T : InventoryEvent> handleEvent(event: T) {
+            (event.inventory as? EventNodeContainerInventory)?.also { inventory ->
+                inventory.eventNode().call(event)
+            }
+        }
+    }
+
+    private val eventNode: EventNode<InventoryEvent> = EventNode.type("window.$windowId", EventFilter.INVENTORY)
+
+    override fun eventNode(): EventNode<InventoryEvent> = eventNode
+}

@@ -7,6 +7,7 @@ import net.bladehunt.kotstom.InstanceManager
 import net.bladehunt.kotstom.dsl.listenOnly
 import net.minestom.server.MinecraftServer
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent
+import net.minestom.server.event.player.PlayerSpawnEvent
 
 fun main() = runBlocking {
     val server = MinecraftServer.init()
@@ -14,6 +15,9 @@ fun main() = runBlocking {
     val instance = InstanceManager.createInstanceContainer()
     GlobalEventHandler.listenOnly<AsyncPlayerConfigurationEvent> { event ->
         event.spawningInstance = instance
+    }
+    GlobalEventHandler.listenOnly<PlayerSpawnEvent> { event ->
+        event.player.openInventory(eventNodeInventory)
     }
 
     playerLoginScheduler()
