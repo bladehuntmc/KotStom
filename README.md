@@ -1,6 +1,9 @@
 # KotStom
 Kotlin extensions & utilities for Minestom
 
+## IMPORTANT:
+This branch is currently using the 1.20.5 branch of Minestom.
+
 ### KotStom is currently under active development and is not fully built or stable yet
 
 > KotStom started as a fork of [KStom](https://github.com/Project-Cepi/KStom), but stemmed into a complete rewrite of KStom
