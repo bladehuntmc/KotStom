@@ -39,9 +39,8 @@ class EventNodeContainerInventory(
         }
 
         private fun <T : InventoryEvent> handleEvent(event: T) {
-            (event.inventory as? EventNodeContainerInventory)?.also { inventory ->
-                inventory.eventNode().call(event)
-            }
+            val inventory = event.inventory as? EventNodeContainerInventory ?: return
+            inventory.eventNode().call(event)
         }
     }
 
