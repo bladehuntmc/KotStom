@@ -2,12 +2,14 @@ package net.bladehunt.kotstom.dsl.item
 
 import net.bladehunt.kotstom.extension.asMini
 import net.kyori.adventure.text.Component
-import net.minestom.server.item.ItemMeta
+import net.minestom.server.component.DataComponent
+import net.minestom.server.item.ItemComponent
 import net.minestom.server.item.ItemStack
 import net.minestom.server.item.Material
+import net.minestom.server.item.component.Unbreakable
 
 @DslMarker
-@Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE, AnnotationTarget.PROPERTY)
 annotation class ItemDsl
 
 @JvmInline
@@ -24,27 +26,47 @@ value class ItemLore(
 
 @ItemDsl
 inline fun ItemStack.Builder.lore(block: @ItemDsl ItemLore.() -> Unit) {
-    lore(ItemLore(arrayListOf()).apply(block))
+    set(ItemComponent.LORE, ItemLore(arrayListOf()).apply(block))
 }
+
+@ItemDsl
 inline var ItemStack.Builder.amount: Int
     get() = 0
     set(value) { this.amount(value) }
 
-inline var ItemStack.Builder.displayName: Component
+@ItemDsl
+inline var ItemStack.Builder.itemName: Component
     get() = Component.empty()
-    set(value) { this.displayName(value) }
+    set(value) {
+        this.set(ItemComponent.ITEM_NAME, value)
+    }
 
-inline var ItemMeta.Builder.displayName: Component
+@ItemDsl
+inline var ItemStack.Builder.customName: Component
     get() = Component.empty()
-    set(value) { this.displayName(value) }
+    set(value) {
+        this.set(ItemComponent.CUSTOM_NAME, value)
+    }
 
-inline var ItemMeta.Builder.damage: Int
+@ItemDsl
+inline var ItemStack.Builder.damage: Int
     get() = 0
-    set(value) { this.damage(value) }
+    set(value) {
+        this.set(ItemComponent.DAMAGE, value)
+    }
 
-inline var ItemMeta.Builder.unbreakable: Boolean
-    get() = false
-    set(value) { this.unbreakable(value) }
+@ItemDsl
+inline var ItemStack.Builder.unbreakable: Unbreakable
+    get() = Unbreakable.DEFAULT
+    set(value) {
+        this.set(ItemComponent.UNBREAKABLE, value)
+    }
+
+context(builder@ItemStack.Builder)
+@ItemDsl
+inline operator fun <T> DataComponent<T>.invoke(value: T) {
+    this@builder.set(this, value)
+}
 
 @ItemDsl
 inline fun item(

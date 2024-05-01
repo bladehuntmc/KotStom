@@ -1,6 +1,5 @@
 package net.bladehunt.kotstom.util
 
-import net.bladehunt.kotstom.Manager
 import net.bladehunt.kotstom.SchedulerManager
 import net.minestom.server.timer.ExecutionType
 import net.minestom.server.timer.Task

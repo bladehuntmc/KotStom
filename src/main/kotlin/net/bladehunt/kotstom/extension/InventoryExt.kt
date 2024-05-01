@@ -1,5 +1,6 @@
 package net.bladehunt.kotstom.extension
 
+import net.minestom.server.inventory.ContainerInventory
 import net.minestom.server.inventory.Inventory
 import net.minestom.server.inventory.InventoryType
 import net.minestom.server.item.ItemStack
@@ -29,7 +30,7 @@ operator fun Inventory.set(slot: Int, itemStack: ItemStack) {
     this.setItemStack(slot, itemStack)
 }
 
-operator fun Inventory.get(x: Int, y: Int): ItemStack = this.getItemStack(y * inventoryType.rowSize + x)
-operator fun Inventory.set(x: Int, y: Int, itemStack: ItemStack) {
+operator fun ContainerInventory.get(x: Int, y: Int): ItemStack = this.getItemStack(y * inventoryType.rowSize + x)
+operator fun ContainerInventory.set(x: Int, y: Int, itemStack: ItemStack) {
     this.setItemStack(y * inventoryType.rowSize + x, itemStack)
 }

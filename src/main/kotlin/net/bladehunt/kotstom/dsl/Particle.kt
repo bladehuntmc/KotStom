@@ -4,6 +4,7 @@ import net.minestom.server.coordinate.Point
 import net.minestom.server.coordinate.Vec
 import net.minestom.server.network.packet.server.play.ParticlePacket
 import net.minestom.server.particle.Particle
+import net.minestom.server.particle.data.ParticleData
 
 data class ParticleBuilder(
     var particle: Particle = Particle.ANGRY_VILLAGER,
@@ -12,7 +13,7 @@ data class ParticleBuilder(
     var offset: Point = Vec.ZERO,
     var particleData: Float = 0F,
     var count: Int = 1,
-    var data: ByteArray = byteArrayOf()
+    var data: ParticleData? = null
 ) {
     fun build(): ParticlePacket = ParticlePacket(
         particle.id(),
@@ -40,7 +41,7 @@ data class ParticleBuilder(
         if (offset != other.offset) return false
         if (particleData != other.particleData) return false
         if (count != other.count) return false
-        if (!data.contentEquals(other.data)) return false
+        if (data != other.data) return false
 
         return true
     }
@@ -51,7 +52,7 @@ data class ParticleBuilder(
         result = 31 * result + offset.hashCode()
         result = 31 * result + particleData.hashCode()
         result = 31 * result + count
-        result = 31 * result + data.contentHashCode()
+        result = 31 * result + data.hashCode()
         return result
     }
 }
