@@ -27,13 +27,13 @@ class EventNodeContainerInventory(
                 "EventNodeContainerInventory.Companion.eventNode",
                 EventFilter.INVENTORY
             ).apply {
-                listenOnly<InventoryPreClickEvent>(Companion::handleEvent)
-                listenOnly<InventoryClickEvent>(Companion::handleEvent)
-                listenOnly<InventoryCloseEvent>(Companion::handleEvent)
-                listenOnly<InventoryOpenEvent>(Companion::handleEvent)
-                listenOnly<InventoryButtonClickEvent>(Companion::handleEvent)
-                listenOnly<InventoryItemChangeEvent>(Companion::handleEvent)
-                listenOnly<InventoryPostClickEvent>(Companion::handleEvent)
+                listenOnly<InventoryPreClickEvent>(::handleEvent)
+                listenOnly<InventoryClickEvent>(::handleEvent)
+                listenOnly<InventoryCloseEvent>(::handleEvent)
+                listenOnly<InventoryOpenEvent>(::handleEvent)
+                listenOnly<InventoryButtonClickEvent>(::handleEvent)
+                listenOnly<InventoryItemChangeEvent>(::handleEvent)
+                listenOnly<InventoryPostClickEvent>(::handleEvent)
                 GlobalEventHandler.addChild(this)
             }
         }
