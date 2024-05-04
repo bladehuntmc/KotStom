@@ -9,7 +9,7 @@ import net.minestom.server.particle.data.ParticleData
 data class ParticleBuilder(
     var particle: Particle = Particle.ANGRY_VILLAGER,
     var longDistance: Boolean = false,
-    var location: Point = Vec.ZERO,
+    var position: Point = Vec.ZERO,
     var offset: Point = Vec.ZERO,
     var particleData: Float = 0F,
     var count: Int = 1,
@@ -18,9 +18,9 @@ data class ParticleBuilder(
     fun build(): ParticlePacket = ParticlePacket(
         particle.id(),
         longDistance,
-        location.x(),
-        location.y(),
-        location.z(),
+        position.x(),
+        position.y(),
+        position.z(),
         offset.x().toFloat(),
         offset.y().toFloat(),
         offset.z().toFloat(),
@@ -37,7 +37,7 @@ data class ParticleBuilder(
 
         if (particle != other.particle) return false
         if (longDistance != other.longDistance) return false
-        if (location != other.location) return false
+        if (position != other.position) return false
         if (offset != other.offset) return false
         if (particleData != other.particleData) return false
         if (count != other.count) return false
@@ -48,7 +48,7 @@ data class ParticleBuilder(
     override fun hashCode(): Int {
         var result = particle.hashCode()
         result = 31 * result + longDistance.hashCode()
-        result = 31 * result + location.hashCode()
+        result = 31 * result + position.hashCode()
         result = 31 * result + offset.hashCode()
         result = 31 * result + particleData.hashCode()
         result = 31 * result + count
