@@ -1,8 +1,8 @@
 package net.bladehunt.kotstom.dsl
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import net.bladehunt.kotstom.coroutines.MinestomDispatcher
 import net.minestom.server.event.Event
 import net.minestom.server.event.EventListener
 import net.minestom.server.event.EventNode
@@ -20,7 +20,7 @@ data class EventBuilder<T : Event>(val clazz: Class<T>) : EventListener.Builder<
         }
     val filters = Filters()
 
-    fun suspendingHandler(context: CoroutineContext = Dispatchers.Default, lambda: suspend T.() -> Unit) = handler {
+    fun suspendingHandler(context: CoroutineContext = MinestomDispatcher, lambda: suspend T.() -> Unit) = handler {
         CoroutineScope(context).launch {
             lambda(it)
         }
