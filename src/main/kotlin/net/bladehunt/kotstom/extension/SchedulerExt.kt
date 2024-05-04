@@ -11,10 +11,10 @@ inline val Schedulable.scheduler get() = scheduler()
 
 suspend fun Scheduler.await(
     delay: TaskSchedule,
-    executionType: ExecutionType = ExecutionType.SYNC
+    executionType: ExecutionType = ExecutionType.TICK_START
 ) = suspendCoroutine { this.buildTask { it.resume(Unit) }.delay(delay).executionType(executionType).schedule() }
 
 suspend fun Schedulable.await(
     delay: TaskSchedule,
-    executionType: ExecutionType = ExecutionType.SYNC
+    executionType: ExecutionType = ExecutionType.TICK_START
 ) = suspendCoroutine { scheduler.buildTask { it.resume(Unit) }.delay(delay).executionType(executionType).schedule() }
