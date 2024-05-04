@@ -1,7 +1,7 @@
 package net.bladehunt.kotstom.util
 
 import net.bladehunt.kotstom.GlobalEventHandler
-import net.bladehunt.kotstom.dsl.listenOnly
+import net.bladehunt.kotstom.dsl.listen
 import net.kyori.adventure.text.Component
 import net.minestom.server.event.EventFilter
 import net.minestom.server.event.EventHandler
@@ -27,21 +27,20 @@ class EventNodeContainerInventory(
                 "EventNodeContainerInventory.Companion.eventNode",
                 EventFilter.INVENTORY
             ).apply {
-                listenOnly<InventoryPreClickEvent>(::handleEvent)
-                listenOnly<InventoryClickEvent>(::handleEvent)
-                listenOnly<InventoryCloseEvent>(::handleEvent)
-                listenOnly<InventoryOpenEvent>(::handleEvent)
-                listenOnly<InventoryButtonClickEvent>(::handleEvent)
-                listenOnly<InventoryItemChangeEvent>(::handleEvent)
-                listenOnly<InventoryPostClickEvent>(::handleEvent)
+                listen<InventoryPreClickEvent>(::handleEvent)
+                listen<InventoryClickEvent>(::handleEvent)
+                listen<InventoryCloseEvent>(::handleEvent)
+                listen<InventoryOpenEvent>(::handleEvent)
+                listen<InventoryButtonClickEvent>(::handleEvent)
+                listen<InventoryItemChangeEvent>(::handleEvent)
+                listen<InventoryPostClickEvent>(::handleEvent)
                 GlobalEventHandler.addChild(this)
             }
         }
 
         private fun <T : InventoryEvent> handleEvent(event: T) {
-            (event.inventory as? EventNodeContainerInventory)?.also { inventory ->
-                inventory.eventNode().call(event)
-            }
+            val inventory = event.inventory as? EventNodeContainerInventory ?: return
+            inventory.eventNode().call(event)
         }
     }
 
