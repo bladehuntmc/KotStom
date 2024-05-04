@@ -20,22 +20,22 @@ data class EventBuilder<T : Event>(val clazz: Class<T>) : EventListener.Builder<
         }
     val filters = Filters()
 
-    fun suspendingHandler(context: CoroutineContext = Dispatchers.IO, lambda: suspend T.() -> Unit) = handler {
+    fun suspendingHandler(context: CoroutineContext = Dispatchers.Default, lambda: suspend T.() -> Unit) = handler {
         CoroutineScope(context).launch {
             lambda(it)
         }
     }
 
     inner class Filters {
-        operator fun plusAssign(lambda: T.() -> Boolean) {
+        operator fun plusAssign(lambda: (T) -> Boolean) {
             filter(lambda)
         }
     }
 }
-inline fun <reified E: Event> EventNode<in E>.listen(block: @EventDSL EventBuilder<E>.() -> Unit): EventNode<in E> = addListener(
+inline fun <reified E : Event> EventNode<in E>.builder(block: @EventDSL EventBuilder<E>.() -> Unit): EventNode<in E> = addListener(
     EventBuilder(E::class.java).apply(block).build()
 )
-inline fun <reified E: Event> EventNode<in E>.listenOnly(noinline block: (E) -> Unit): EventNode<in E> = addListener(
+inline fun <reified E : Event> EventNode<in E>.listen(noinline block: (E) -> Unit): EventNode<in E> = addListener(
     E::class.java,
     block
 )
