@@ -17,7 +17,7 @@ import net.minestom.server.event.trait.InventoryEvent
 import net.minestom.server.inventory.ContainerInventory
 import net.minestom.server.inventory.InventoryType
 
-class EventNodeContainerInventory(
+open class EventNodeContainerInventory(
     inventoryType: InventoryType,
     title: Component
 ) : ContainerInventory(inventoryType, title), EventHandler<InventoryEvent> {

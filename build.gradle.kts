@@ -48,13 +48,14 @@ subprojects {
 
 dependencies {
     compileOnly("io.github.jglrxavpok.hephaistos", "common", "2.5.3")
-    compileOnly("net.minestom", "minestom-snapshots", "1_20_5-e63c9def24")
+    compileOnly("net.minestom", "minestom-snapshots", property("minestom.version") as String)
     api("net.kyori:adventure-text-minimessage:4.16.0")
 
     compileOnly("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
+    testImplementation("net.minestom", "minestom-snapshots", property("minestom.version") as String)
     testImplementation("io.kotest:kotest-assertions-core:5.8.1")
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
 }

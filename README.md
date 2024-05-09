@@ -1,14 +1,16 @@
 # KotStom
-Kotlin extensions & utilities for Minestom
+Kotlin extensions & utilities for Minestom (1.20.5)
 
-## IMPORTANT:
-This branch is currently using the 1.20.5 branch of Minestom.
+---
 
-### KotStom is currently under active development and is not fully built or stable yet
+> **If you need 1.20.4, use a previous version**
+> KotStom started as a fork of [KStom](https://github.com/Project-Cepi/KStom), but eventually became a rewrite
 
-> KotStom started as a fork of [KStom](https://github.com/Project-Cepi/KStom), but stemmed into a complete rewrite of KStom
+### For more information, visit [the wiki](https://www.bladehunt.net/developers/kotstom) or view [the example](example/src/main/kotlin)
 
-## Adding as a dependency
+---
+
+### Adding as a dependency
 
 ```kotlin
 repositories {
