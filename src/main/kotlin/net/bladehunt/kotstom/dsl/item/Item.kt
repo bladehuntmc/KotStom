@@ -31,35 +31,35 @@ inline fun ItemStack.Builder.lore(block: @ItemDsl ItemLore.() -> Unit) {
 
 @ItemDsl
 inline var ItemStack.Builder.amount: Int
-    get() = 0
+    get() = throw NotImplementedError("Cannot get amount from ItemStack.Builder")
     set(value) { this.amount(value) }
 
 @ItemDsl
 inline var ItemStack.Builder.itemName: Component
-    get() = Component.empty()
+    get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        this.set(ItemComponent.ITEM_NAME, value)
+        ItemComponent.ITEM_NAME(value)
     }
 
 @ItemDsl
 inline var ItemStack.Builder.customName: Component
-    get() = Component.empty()
+    get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        this.set(ItemComponent.CUSTOM_NAME, value)
+        ItemComponent.CUSTOM_NAME(value)
     }
 
 @ItemDsl
 inline var ItemStack.Builder.damage: Int
-    get() = 0
+    get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        this.set(ItemComponent.DAMAGE, value)
+        ItemComponent.DAMAGE(value)
     }
 
 @ItemDsl
 inline var ItemStack.Builder.unbreakable: Unbreakable
-    get() = Unbreakable.DEFAULT
+    get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
     set(value) {
-        this.set(ItemComponent.UNBREAKABLE, value)
+        ItemComponent.UNBREAKABLE(value)
     }
 
 context(builder@ItemStack.Builder)
