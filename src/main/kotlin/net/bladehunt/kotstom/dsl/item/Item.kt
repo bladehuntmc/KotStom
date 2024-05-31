@@ -13,12 +13,11 @@ import net.minestom.server.item.component.Unbreakable
 annotation class ItemDsl
 
 @JvmInline
-value class ItemLore(
-    private val list: MutableList<Component>
-) : MutableList<Component> by list {
+value class ItemLore(private val list: MutableList<Component>) : MutableList<Component> by list {
     operator fun Component.unaryPlus() {
         add(this)
     }
+
     operator fun String.unaryPlus() {
         add(this.asMini())
     }
@@ -32,7 +31,9 @@ inline fun ItemStack.Builder.lore(block: @ItemDsl ItemLore.() -> Unit) {
 @ItemDsl
 inline var ItemStack.Builder.amount: Int
     get() = throw NotImplementedError("Cannot get amount from ItemStack.Builder")
-    set(value) { this.amount(value) }
+    set(value) {
+        this.amount(value)
+    }
 
 @ItemDsl
 inline var ItemStack.Builder.itemName: Component
@@ -62,7 +63,7 @@ inline var ItemStack.Builder.unbreakable: Unbreakable
         ItemComponent.UNBREAKABLE(value)
     }
 
-context(builder@ItemStack.Builder)
+context(builder@ ItemStack.Builder)
 @ItemDsl
 inline operator fun <T> DataComponent<T>.invoke(value: T) {
     this@builder.set(this, value)

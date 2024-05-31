@@ -12,9 +12,7 @@ import net.minestom.server.item.component.Unbreakable
 
 val ItemCommand = kommand {
     name = "item"
-    default {
-        sender.sendMessage("You aren't a player.")
-    }
+    default { sender.sendMessage("You aren't a player.") }
     buildSyntax {
         onlyPlayers()
         executor {

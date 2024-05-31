@@ -1,11 +1,11 @@
 package net.bladehunt.kotstom.command
 
+import java.util.function.Function
 import net.minestom.server.command.CommandSender
 import net.minestom.server.command.builder.CommandExecutor
 import net.minestom.server.command.builder.CommandSyntax
 import net.minestom.server.command.builder.arguments.Argument
 import net.minestom.server.command.builder.condition.CommandCondition
-import java.util.function.Function
 
 class KommandSyntax(
     commandCondition: CommandCondition?,

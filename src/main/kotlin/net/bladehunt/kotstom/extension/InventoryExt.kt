@@ -9,31 +9,32 @@ import net.minestom.server.item.ItemStack
 import net.minestom.server.utils.inventory.PlayerInventoryUtils
 
 val InventoryType.rowSize: Int
-    get() = when (this) {
-        InventoryType.CHEST_1_ROW,
-        InventoryType.CHEST_2_ROW,
-        InventoryType.CHEST_3_ROW,
-        InventoryType.CHEST_4_ROW,
-        InventoryType.CHEST_5_ROW,
-        InventoryType.CHEST_6_ROW,
-        InventoryType.SHULKER_BOX -> 9
-
-        InventoryType.WINDOW_3X3,
-        InventoryType.CRAFTER_3X3,
-        InventoryType.CRAFTING,
-        InventoryType.ANVIL -> 3
-
-        InventoryType.HOPPER -> 7
-
-        else -> 1
-    }
+    get() =
+        when (this) {
+            InventoryType.CHEST_1_ROW,
+            InventoryType.CHEST_2_ROW,
+            InventoryType.CHEST_3_ROW,
+            InventoryType.CHEST_4_ROW,
+            InventoryType.CHEST_5_ROW,
+            InventoryType.CHEST_6_ROW,
+            InventoryType.SHULKER_BOX -> 9
+            InventoryType.WINDOW_3X3,
+            InventoryType.CRAFTER_3X3,
+            InventoryType.CRAFTING,
+            InventoryType.ANVIL -> 3
+            InventoryType.HOPPER -> 7
+            else -> 1
+        }
 
 operator fun Inventory.get(slot: Int): ItemStack = this.getItemStack(slot)
+
 operator fun Inventory.set(slot: Int, itemStack: ItemStack) {
     this.setItemStack(slot, itemStack)
 }
 
-operator fun ContainerInventory.get(x: Int, y: Int): ItemStack = this.getItemStack(y * inventoryType.rowSize + x)
+operator fun ContainerInventory.get(x: Int, y: Int): ItemStack =
+    this.getItemStack(y * inventoryType.rowSize + x)
+
 operator fun ContainerInventory.set(x: Int, y: Int, itemStack: ItemStack) {
     this.setItemStack(y * inventoryType.rowSize + x, itemStack)
 }
@@ -58,12 +59,10 @@ val Click.Info.slots: List<Int>
             is Click.Info.OffhandSwap -> listOf(this.slot)
             is Click.Info.Right -> listOf(this.slot)
             is Click.Info.RightShift -> listOf(this.slot)
-
             is Click.Info.HotbarSwap -> listOf(this.hotbarSlot, this.clickedSlot)
             is Click.Info.LeftDrag -> this.slots
             is Click.Info.MiddleDrag -> this.slots
             is Click.Info.RightDrag -> this.slots
-
             else -> emptyList()
         }
     }

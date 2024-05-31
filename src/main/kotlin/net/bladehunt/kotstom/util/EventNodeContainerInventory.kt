@@ -6,36 +6,26 @@ import net.kyori.adventure.text.Component
 import net.minestom.server.event.EventFilter
 import net.minestom.server.event.EventHandler
 import net.minestom.server.event.EventNode
-import net.minestom.server.event.inventory.InventoryButtonClickEvent
-import net.minestom.server.event.inventory.InventoryClickEvent
-import net.minestom.server.event.inventory.InventoryCloseEvent
-import net.minestom.server.event.inventory.InventoryItemChangeEvent
-import net.minestom.server.event.inventory.InventoryOpenEvent
-import net.minestom.server.event.inventory.InventoryPostClickEvent
-import net.minestom.server.event.inventory.InventoryPreClickEvent
+import net.minestom.server.event.inventory.*
 import net.minestom.server.event.trait.InventoryEvent
 import net.minestom.server.inventory.ContainerInventory
 import net.minestom.server.inventory.InventoryType
 
-open class EventNodeContainerInventory(
-    inventoryType: InventoryType,
-    title: Component
-) : ContainerInventory(inventoryType, title), EventHandler<InventoryEvent> {
+open class EventNodeContainerInventory(inventoryType: InventoryType, title: Component) :
+    ContainerInventory(inventoryType, title), EventHandler<InventoryEvent> {
     private companion object {
         init {
-            EventNode.type(
-                "EventNodeContainerInventory.Companion.eventNode",
-                EventFilter.INVENTORY
-            ).apply {
-                listen<InventoryPreClickEvent>(::handleEvent)
-                listen<InventoryClickEvent>(::handleEvent)
-                listen<InventoryCloseEvent>(::handleEvent)
-                listen<InventoryOpenEvent>(::handleEvent)
-                listen<InventoryButtonClickEvent>(::handleEvent)
-                listen<InventoryItemChangeEvent>(::handleEvent)
-                listen<InventoryPostClickEvent>(::handleEvent)
-                GlobalEventHandler.addChild(this)
-            }
+            EventNode.type("EventNodeContainerInventory.Companion.eventNode", EventFilter.INVENTORY)
+                .apply {
+                    listen<InventoryPreClickEvent>(::handleEvent)
+                    listen<InventoryClickEvent>(::handleEvent)
+                    listen<InventoryCloseEvent>(::handleEvent)
+                    listen<InventoryOpenEvent>(::handleEvent)
+                    listen<InventoryButtonClickEvent>(::handleEvent)
+                    listen<InventoryItemChangeEvent>(::handleEvent)
+                    listen<InventoryPostClickEvent>(::handleEvent)
+                    GlobalEventHandler.addChild(this)
+                }
         }
 
         private fun <T : InventoryEvent> handleEvent(event: T) {
@@ -44,7 +34,8 @@ open class EventNodeContainerInventory(
         }
     }
 
-    private val eventNode: EventNode<InventoryEvent> = EventNode.type("window.$windowId", EventFilter.INVENTORY)
+    private val eventNode: EventNode<InventoryEvent> =
+        EventNode.type("window.$windowId", EventFilter.INVENTORY)
 
     override fun eventNode(): EventNode<InventoryEvent> = eventNode
 }

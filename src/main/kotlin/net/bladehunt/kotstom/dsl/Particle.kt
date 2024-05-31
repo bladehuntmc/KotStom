@@ -15,19 +15,20 @@ data class ParticleBuilder(
     var count: Int = 1,
     var data: ParticleData? = null
 ) {
-    fun build(): ParticlePacket = ParticlePacket(
-        particle.id(),
-        longDistance,
-        position.x(),
-        position.y(),
-        position.z(),
-        offset.x().toFloat(),
-        offset.y().toFloat(),
-        offset.z().toFloat(),
-        particleData,
-        count,
-        data
-    )
+    fun build(): ParticlePacket =
+        ParticlePacket(
+            particle.id(),
+            longDistance,
+            position.x(),
+            position.y(),
+            position.z(),
+            offset.x().toFloat(),
+            offset.y().toFloat(),
+            offset.z().toFloat(),
+            particleData,
+            count,
+            data
+        )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,6 +46,7 @@ data class ParticleBuilder(
 
         return true
     }
+
     override fun hashCode(): Int {
         var result = particle.hashCode()
         result = 31 * result + longDistance.hashCode()
@@ -57,4 +59,5 @@ data class ParticleBuilder(
     }
 }
 
-inline fun particle(block: ParticleBuilder.() -> Unit): ParticlePacket = ParticleBuilder().apply(block).build()
+inline fun particle(block: ParticleBuilder.() -> Unit): ParticlePacket =
+    ParticleBuilder().apply(block).build()
