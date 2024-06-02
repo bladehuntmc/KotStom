@@ -7,13 +7,12 @@ import net.minestom.server.command.builder.arguments.minecraft.registry.Argument
 import net.minestom.server.command.builder.arguments.number.ArgumentInteger
 
 val ParticleCommand = kommand {
+    name = "particle"
+
     val particleArg = ArgumentParticle("particle_id")
     val countArg = ArgumentInteger("count")
 
-    name = "particle"
-    default {
-        sender.sendMessage("Please provide arguments.")
-    }
+    defaultExecutor { sender.sendMessage("Please provide arguments.") }
     buildSyntax(particleArg) {
         onlyPlayers()
         executor {

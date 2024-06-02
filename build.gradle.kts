@@ -1,9 +1,10 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.serialization") version "1.9.23"
+    kotlin("jvm") version "2.0.0"
+    kotlin("plugin.serialization") version "2.0.0"
     id("io.github.goooler.shadow") version "8.1.7"
 
     `maven-publish`
@@ -29,35 +30,28 @@ allprojects {
     }
 
     tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "21"
-            compilerOptions {
-                freeCompilerArgs.addAll("-Xinline-classes", "-Xcontext-receivers")
-            }
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+            compilerOptions { freeCompilerArgs.addAll("-Xinline-classes", "-Xcontext-receivers") }
         }
     }
 }
 
-java {
-    withSourcesJar()
-}
+java { withSourcesJar() }
 
-subprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-}
+subprojects { apply(plugin = "org.jetbrains.kotlin.jvm") }
 
 dependencies {
-    compileOnly("io.github.jglrxavpok.hephaistos", "common", "2.5.3")
     compileOnly("net.minestom", "minestom-snapshots", property("minestom.version") as String)
-    api("net.kyori:adventure-text-minimessage:4.16.0")
+    api("net.kyori:adventure-text-minimessage:4.17.0")
 
-    compileOnly("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    compileOnly(kotlin("reflect"))
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0-RC")
 
     testImplementation("net.minestom", "minestom-snapshots", property("minestom.version") as String)
-    testImplementation("io.kotest:kotest-assertions-core:5.8.1")
-    testImplementation("io.kotest:kotest-runner-junit5:5.8.1")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.0")
+    testImplementation("io.kotest:kotest-runner-junit5:5.9.0")
 }
 
 tasks.named<ShadowJar>("shadowJar") {
@@ -66,13 +60,9 @@ tasks.named<ShadowJar>("shadowJar") {
     minimize()
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+tasks.withType<Test> { useJUnitPlatform() }
 
-tasks.build {
-    dependsOn("shadowJar")
-}
+tasks.build { dependsOn("shadowJar") }
 
 publishing {
     publications {
@@ -88,9 +78,7 @@ publishing {
                 name = "Job-Token"
                 value = properties["CI_JOB_TOKEN"] as String?
             }
-            authentication {
-                create("header", HttpHeaderAuthentication::class)
-            }
+            authentication { create("header", HttpHeaderAuthentication::class) }
         }
     }
 }

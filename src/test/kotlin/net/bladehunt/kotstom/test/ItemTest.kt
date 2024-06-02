@@ -5,18 +5,20 @@ import io.kotest.matchers.shouldBe
 import net.bladehunt.kotstom.dsl.item.amount
 import net.bladehunt.kotstom.dsl.item.customName
 import net.bladehunt.kotstom.dsl.item.item
-import net.bladehunt.kotstom.extension.asMini
-import net.bladehunt.kotstom.extension.toMiniMessage
+import net.bladehunt.kotstom.extension.adventure.asMini
+import net.bladehunt.kotstom.extension.adventure.toMiniMessage
 import net.minestom.server.item.ItemComponent
 import net.minestom.server.item.Material
 
-class ItemTest : FunSpec({
-    test("materials & attributes should be set") {
-        val item = item(Material.BOOK) {
-            amount = 5
-            customName = "<red>Custom Book".asMini()
+class ItemTest :
+    FunSpec({
+        test("materials & attributes should be set") {
+            val item =
+                item(Material.BOOK) {
+                    amount = 5
+                    customName = "<red>Custom Book".asMini()
+                }
+            item.amount() shouldBe 5
+            item.get(ItemComponent.CUSTOM_NAME)!!.toMiniMessage() shouldBe "<red>Custom Book"
         }
-        item.amount() shouldBe 5
-        item.get(ItemComponent.CUSTOM_NAME)!!.toMiniMessage() shouldBe "<red>Custom Book"
-    }
-})
+    })

@@ -1,6 +1,6 @@
 package net.bladehunt.kotstom.dsl.item
 
-import net.bladehunt.kotstom.extension.asMini
+import net.bladehunt.kotstom.extension.adventure.asMini
 import net.kyori.adventure.text.Component
 import net.minestom.server.component.DataComponent
 import net.minestom.server.item.ItemComponent
@@ -12,28 +12,59 @@ import net.minestom.server.item.component.Unbreakable
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE, AnnotationTarget.PROPERTY)
 annotation class ItemDsl
 
+/**
+ * A value class that wraps a list to make lore easier
+ *
+ * @author oglassdev
+ */
 @JvmInline
-value class ItemLore(
-    private val list: MutableList<Component>
-) : MutableList<Component> by list {
+value class ItemLore(private val list: MutableList<Component>) : MutableList<Component> by list {
+    /**
+     * Adds a `Component` to the lore
+     *
+     * @author oglassdev
+     */
     operator fun Component.unaryPlus() {
         add(this)
     }
+
+    /**
+     * Adds a `String`, formatted with `MiniMessage`, to the lore
+     *
+     * @author oglassdev
+     */
     operator fun String.unaryPlus() {
         add(this.asMini())
     }
 }
 
+/**
+ * Sets the `ItemComponent.LORE` of an ItemStack.Builder
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline fun ItemStack.Builder.lore(block: @ItemDsl ItemLore.() -> Unit) {
-    set(ItemComponent.LORE, ItemLore(arrayListOf()).apply(block))
+    ItemComponent.LORE(ItemLore(arrayListOf()).apply(block))
 }
 
+/**
+ * Sets the amount of an ItemStack.Builder
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline var ItemStack.Builder.amount: Int
     get() = throw NotImplementedError("Cannot get amount from ItemStack.Builder")
-    set(value) { this.amount(value) }
+    set(value) {
+        this.amount(value)
+    }
 
+/**
+ * Sets the `ItemComponent.ITEM_NAME` of an ItemStack.Builder
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline var ItemStack.Builder.itemName: Component
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
@@ -41,6 +72,11 @@ inline var ItemStack.Builder.itemName: Component
         ItemComponent.ITEM_NAME(value)
     }
 
+/**
+ * Sets the `ItemComponent.CUSTOM_NAME` of an ItemStack.Builder
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline var ItemStack.Builder.customName: Component
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
@@ -48,6 +84,11 @@ inline var ItemStack.Builder.customName: Component
         ItemComponent.CUSTOM_NAME(value)
     }
 
+/**
+ * Sets the `ItemComponent.DAMAGE` of an ItemStack.Builder
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline var ItemStack.Builder.damage: Int
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
@@ -55,6 +96,11 @@ inline var ItemStack.Builder.damage: Int
         ItemComponent.DAMAGE(value)
     }
 
+/**
+ * Sets the `ItemComponent.UNBREAKABLE` of an ItemStack.Builder
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline var ItemStack.Builder.unbreakable: Unbreakable
     get() = throw NotImplementedError("Cannot get ItemComponent from ItemStack.Builder")
@@ -62,12 +108,17 @@ inline var ItemStack.Builder.unbreakable: Unbreakable
         ItemComponent.UNBREAKABLE(value)
     }
 
-context(builder@ItemStack.Builder)
+context(builder@ ItemStack.Builder)
 @ItemDsl
 inline operator fun <T> DataComponent<T>.invoke(value: T) {
     this@builder.set(this, value)
 }
 
+/**
+ * ItemStack builder DSL
+ *
+ * @author oglassdev
+ */
 @ItemDsl
 inline fun item(
     material: Material = Material.STONE,

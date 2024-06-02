@@ -4,4 +4,10 @@ import net.minestom.server.event.Event
 import net.minestom.server.event.EventListener
 import net.minestom.server.event.EventNode
 
-fun <T : Event> EventNode<T>.addListeners(vararg listeners: EventListener<T>) = listeners.forEach(this::addListener)
+/**
+ * Adds multiple listeners to an `EventNode`
+ *
+ * @author oglassdev
+ */
+fun <T : Event> EventNode<T>.addListeners(vararg listeners: EventListener<T>) =
+    listeners.forEach(this::addListener)

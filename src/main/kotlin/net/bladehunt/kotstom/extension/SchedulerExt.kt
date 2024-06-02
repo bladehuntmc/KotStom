@@ -7,14 +7,22 @@ import net.minestom.server.timer.TaskSchedule
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-inline val Schedulable.scheduler get() = scheduler()
+@Deprecated("", ReplaceWith("scheduler()"))
+inline val Schedulable.scheduler
+    get() = scheduler()
 
+/** Suspends a coroutine until a delay is met */
 suspend fun Scheduler.await(
     delay: TaskSchedule,
     executionType: ExecutionType = ExecutionType.TICK_START
-) = suspendCoroutine { this.buildTask { it.resume(Unit) }.delay(delay).executionType(executionType).schedule() }
+) = suspendCoroutine {
+    this.buildTask { it.resume(Unit) }.delay(delay).executionType(executionType).schedule()
+}
 
+/** Suspends a coroutine until a delay is met */
 suspend fun Schedulable.await(
     delay: TaskSchedule,
     executionType: ExecutionType = ExecutionType.TICK_START
-) = suspendCoroutine { scheduler.buildTask { it.resume(Unit) }.delay(delay).executionType(executionType).schedule() }
+) = suspendCoroutine {
+    scheduler().buildTask { it.resume(Unit) }.delay(delay).executionType(executionType).schedule()
+}
