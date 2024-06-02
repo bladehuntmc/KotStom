@@ -16,7 +16,8 @@ operator fun <T> Tag<T>.getValue(thisRef: TagReadable?, property: KProperty<*>):
 
 /**
  * Delegation utility for setting the value of a tag
- * * @author oglassdev
+ *
+ * @author oglassdev
  */
 operator fun <T> Tag<T>.setValue(thisRef: TagWritable?, property: KProperty<*>, value: T) {
     thisRef?.setTag(this, value)
