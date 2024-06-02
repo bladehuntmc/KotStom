@@ -1,5 +1,6 @@
 # KotStom
-Kotlin extensions & utilities for Minestom (1.20.5)
+
+Kotlin extensions & utilities for Minestom (1.20.5/1.20.6)
 
 ---
 
@@ -18,6 +19,6 @@ repositories {
 }
 
 dependencies {
-    implementation("net.bladehunt:kotstom:0.1.0")
+    implementation("net.bladehunt:kotstom:0.2.0-beta")
 }
 ```
