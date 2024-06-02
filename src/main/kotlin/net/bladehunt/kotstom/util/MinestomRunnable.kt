@@ -6,13 +6,23 @@ import net.minestom.server.timer.Scheduler
 import net.minestom.server.timer.Task
 import net.minestom.server.timer.TaskSchedule
 
+/**
+ * A runnable that can be scheduled using a `Scheduler` with a delay/repeat schedule
+ *
+ * @author oglassdev
+ */
 abstract class MinestomRunnable(
     private var delaySchedule: TaskSchedule = TaskSchedule.immediate(),
     private var repeatSchedule: TaskSchedule = TaskSchedule.stop(),
-    private var executionType: ExecutionType = ExecutionType.SYNC
+    private var executionType: ExecutionType = ExecutionType.TICK_START
 ) : Runnable {
     private var task: Task? = null
 
+    /**
+     * Schedules the MinestomRunnable using the specified scheduler
+     *
+     * @param scheduler The scheduler to use to schedule the task
+     */
     fun schedule(scheduler: Scheduler = SchedulerManager): Task =
         scheduler.buildTask(this).let {
             if (delaySchedule != TaskSchedule.immediate()) it.delay(delaySchedule)

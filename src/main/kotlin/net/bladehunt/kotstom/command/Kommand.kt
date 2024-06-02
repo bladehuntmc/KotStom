@@ -2,4 +2,9 @@ package net.bladehunt.kotstom.command
 
 import net.minestom.server.command.builder.Command
 
-class Kommand(name: String, vararg aliases: String) : Command(name, *aliases) {}
+/**
+ * A `Command` implementation that gets generated from the `Kommand` builder DSL
+ *
+ * @author oglassdev
+ */
+class Kommand(name: String, vararg aliases: String) : Command(name, *aliases)

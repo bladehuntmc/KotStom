@@ -11,6 +11,14 @@ import net.minestom.server.event.trait.InventoryEvent
 import net.minestom.server.inventory.ContainerInventory
 import net.minestom.server.inventory.InventoryType
 
+/**
+ * A ContainerInventory with an `EventNode`. These `EventNode`s are never registered anywhere,
+ * meaning that they are cleaned up properly.
+ *
+ * @param inventoryType The type of the inventory
+ * @param title The inventory's title
+ * @author oglassdev
+ */
 open class EventNodeContainerInventory(inventoryType: InventoryType, title: Component) :
     ContainerInventory(inventoryType, title), EventHandler<InventoryEvent> {
     private companion object {

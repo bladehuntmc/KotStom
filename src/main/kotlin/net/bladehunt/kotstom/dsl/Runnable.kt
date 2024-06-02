@@ -6,6 +6,12 @@ import net.minestom.server.timer.TaskSchedule
 
 @DslMarker @Target(AnnotationTarget.FUNCTION, AnnotationTarget.TYPE) annotation class RunnableDSL
 
+/**
+ * A builder DSL for `MinestomRunnable`
+ *
+ * @see net.bladehunt.kotstom.util.MinestomRunnable
+ * @author oglassdev
+ */
 data class RunnableBuilder(
     var delay: TaskSchedule = TaskSchedule.immediate(),
     var repeat: TaskSchedule = TaskSchedule.stop(),
@@ -23,6 +29,12 @@ data class RunnableBuilder(
         }
 }
 
+/**
+ * A builder DSL for `MinestomRunnable`
+ *
+ * @see net.bladehunt.kotstom.util.MinestomRunnable
+ * @author oglassdev
+ */
 @RunnableDSL
 inline fun runnable(block: @RunnableDSL RunnableBuilder.() -> Unit): MinestomRunnable =
     RunnableBuilder().apply(block).build()

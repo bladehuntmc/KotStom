@@ -7,6 +7,11 @@ import net.minestom.server.command.builder.CommandSyntax
 import net.minestom.server.command.builder.arguments.Argument
 import net.minestom.server.command.builder.condition.CommandCondition
 
+/**
+ * A `CommandSyntax` implementation for `Kommand`
+ *
+ * @author oglassdev
+ */
 class KommandSyntax(
     commandCondition: CommandCondition?,
     commandExecutor: CommandExecutor,
