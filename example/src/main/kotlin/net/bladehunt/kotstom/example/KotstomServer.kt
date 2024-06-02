@@ -1,5 +1,6 @@
 package net.bladehunt.kotstom.example
 
+import kotlinx.coroutines.delay
 import net.bladehunt.kotstom.CommandManager
 import net.bladehunt.kotstom.GlobalEventHandler
 import net.bladehunt.kotstom.InstanceManager
@@ -28,7 +29,11 @@ fun main() {
     GlobalEventHandler.builder<PlayerSpawnEvent> {
         expireCount = 10
         filter { it.isFirstSpawn }
-        handler { event -> event.player.sendMessage("You were within the first 10") }
+        asyncHandler { event ->
+            event.player.sendMessage("You were within the first 10")
+            delay(5000)
+            event.player.sendMessage("Waited 5 seconds")
+        }
     }
 
     CommandManager.register(
