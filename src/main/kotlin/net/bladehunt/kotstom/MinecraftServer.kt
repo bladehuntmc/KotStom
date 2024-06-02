@@ -69,5 +69,5 @@ inline val WolfVariantRegistry: DynamicRegistry<WolfMeta.Variant>
     get() = getWolfVariantRegistry()
 inline val TrimMaterialRegistry: DynamicRegistry<TrimMaterial>
     get() = getTrimMaterialRegistry()
-inline val DamagaeTypeRegistry: DynamicRegistry<DamageType>
+inline val DamageTypeRegistry: DynamicRegistry<DamageType>
     get() = getDamageTypeRegistry()
