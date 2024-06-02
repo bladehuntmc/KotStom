@@ -9,6 +9,10 @@
     - Updated row sizes
     - Async/blocking handlers for events and kommands
     - KBar (Sidebar DSL)
+    - String -> Component extensions: `String.color(), String.decorate()`
+    - More adventure extensions
+- Bug fixes
+    - Point extensions (sub, mul) only added, now they do the proper operation
 - Code quality
     - Added KDoc comments
     - Formatted project with `ktfmt`
