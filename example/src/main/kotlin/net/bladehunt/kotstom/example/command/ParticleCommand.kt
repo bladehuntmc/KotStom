@@ -12,7 +12,7 @@ val ParticleCommand = kommand {
     val particleArg = ArgumentParticle("particle_id")
     val countArg = ArgumentInteger("count")
 
-    default { sender.sendMessage("Please provide arguments.") }
+    defaultExecutor { sender.sendMessage("Please provide arguments.") }
     buildSyntax(particleArg) {
         onlyPlayers()
         executor {
