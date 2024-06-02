@@ -5,14 +5,14 @@ import net.bladehunt.kotstom.dsl.kommand.buildSyntax
 import net.bladehunt.kotstom.dsl.kommand.kommand
 import net.bladehunt.kotstom.dsl.line
 import net.bladehunt.kotstom.dsl.runnable
-import net.bladehunt.kotstom.extension.asMini
+import net.bladehunt.kotstom.extension.adventure.asMini
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.minestom.server.timer.TaskSchedule
 
 val KBarCommand = kommand {
     name = "kbar"
-    default { sender.sendMessage("You aren't a player.") }
+    defaultExecutor { sender.sendMessage("You aren't a player.") }
     buildSyntax {
         onlyPlayers()
         executor {

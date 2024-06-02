@@ -7,7 +7,7 @@ import net.minestom.server.timer.TaskSchedule
 
 val RunnableCommand = kommand {
     name = "runnable"
-    default { sender.sendMessage("You aren't a player.") }
+    defaultExecutor { sender.sendMessage("You aren't a player.") }
     buildSyntax {
         onlyPlayers()
         executor {
