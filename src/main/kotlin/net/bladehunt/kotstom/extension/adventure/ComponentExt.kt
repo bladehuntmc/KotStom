@@ -1,28 +1,54 @@
-package net.bladehunt.kotstom.extension
+package net.bladehunt.kotstom.extension.adventure
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentBuilder
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 
-// Conversions
-fun String.asMini(tagResolver: TagResolver = TagResolver.standard()): Component =
-    MiniMessage.miniMessage().deserialize(this, tagResolver)
-
-fun String.asLegacyAmpersand(): Component =
-    LegacyComponentSerializer.legacyAmpersand().deserialize(this)
-
+/**
+ * Converts a `Component` to a MiniMessage formatted `String`
+ *
+ * @return A `String` in MiniMessage format
+ * @author oglassdev
+ */
 fun Component.toMiniMessage(): String = MiniMessage.miniMessage().serialize(this)
 
+/**
+ * Converts a `Component` to an unformatted `String`
+ *
+ * @return An unformatted `String`
+ * @author oglassdev
+ */
 fun Component.toPlainText(): String = PlainTextComponentSerializer.plainText().serialize(this)
 
+/**
+ * Converts a `Component` to a legacy ampersand formatted `String`
+ *
+ * @return A `String` in legacy ampersand format
+ * @author oglassdev
+ */
 fun Component.toLegacyAmpersand(): String =
     LegacyComponentSerializer.legacyAmpersand().serialize(this)
 
-// shamelessly copied it from the old one
+/**
+ * Appends a `Component` to another `Component`
+ *
+ * @return The second component appended to the first component
+ * @author oglassdev
+ */
+operator fun Component.plus(other: Component): Component = this.append(other)
+
+/**
+ * Appends a `String` to a `Component`
+ *
+ * @return The second component appended to the first component
+ * @author oglassdev
+ */
+operator fun Component.plus(other: String): Component = this.append(Component.text(other))
+
+// Copied from KStom. Original authors: DasLixou & LeoDog896
 fun Component.undecorate(decoration: TextDecoration): Component =
     decoration(decoration, TextDecoration.State.FALSE)
 
