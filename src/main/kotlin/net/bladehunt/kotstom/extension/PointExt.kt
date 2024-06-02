@@ -50,9 +50,11 @@ fun Vec.rotateDegrees(degreesX: Double, degreesY: Double, degreesZ: Double) =
 // Division is not needed as it already works
 operator fun Point.plus(other: Point) = this.add(other)
 
-operator fun Point.minus(other: Point) = this.add(other)
+operator fun Point.minus(other: Point) = this.sub(other)
 
-operator fun Point.times(other: Point) = this.add(other)
+operator fun Point.times(other: Point) = this.mul(other)
+
+operator fun Point.times(value: Double) = this.mul(value)
 
 operator fun Vec.unaryMinus() = this.neg()
 
