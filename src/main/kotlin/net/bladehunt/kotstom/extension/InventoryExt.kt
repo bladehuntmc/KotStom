@@ -8,6 +8,11 @@ import net.minestom.server.inventory.click.Click
 import net.minestom.server.item.ItemStack
 import net.minestom.server.utils.inventory.PlayerInventoryUtils
 
+/**
+ * Returns the row size of an inventory.
+ *
+ * @author oglassdev
+ */
 val InventoryType.rowSize: Int
     get() =
         when (this) {
@@ -21,24 +26,52 @@ val InventoryType.rowSize: Int
             InventoryType.WINDOW_3X3,
             InventoryType.CRAFTER_3X3,
             InventoryType.CRAFTING,
+            InventoryType.MERCHANT,
             InventoryType.ANVIL -> 3
             InventoryType.HOPPER -> 7
+            InventoryType.SMITHING -> 4
             else -> 1
         }
 
+/**
+ * Indexing operator for getting an ItemStack at a position
+ *
+ * @author oglassdev
+ */
 operator fun Inventory.get(slot: Int): ItemStack = this.getItemStack(slot)
 
+/**
+ * Indexing operator for setting an ItemStack at a position
+ *
+ * @author oglassdev
+ */
 operator fun Inventory.set(slot: Int, itemStack: ItemStack) {
     this.setItemStack(slot, itemStack)
 }
 
+/**
+ * Indexing operator for getting an ItemStack at an `x, y` position in an inventory
+ *
+ * @author oglassdev
+ */
 operator fun ContainerInventory.get(x: Int, y: Int): ItemStack =
     this.getItemStack(y * inventoryType.rowSize + x)
 
+/**
+ * Indexing operator for setting an ItemStack at an `x, y` position in an inventory
+ *
+ * @author oglassdev
+ */
 operator fun ContainerInventory.set(x: Int, y: Int, itemStack: ItemStack) {
     this.setItemStack(y * inventoryType.rowSize + x, itemStack)
 }
 
+/**
+ * Helper method for getting an ItemStack from an `Inventory` or a `PlayerInventory`, depending on
+ * the slot
+ *
+ * @author oglassdev
+ */
 fun getItemStack(slot: Int, inventory: Inventory, playerInventory: PlayerInventory): ItemStack {
     return if (slot < inventory.size) {
         inventory[slot]
@@ -47,6 +80,12 @@ fun getItemStack(slot: Int, inventory: Inventory, playerInventory: PlayerInvento
     }
 }
 
+/**
+ * Returns the slots involved in a `Click.Info`. If the `Click.Info` is a `Click.Info.HotbarSwap`,
+ * then a list of the hotbarSlot and the clickedSlot is returned.
+ *
+ * @author oglassdev
+ */
 val Click.Info.slots: List<Int>
     get() {
         return when (this) {
