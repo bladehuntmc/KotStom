@@ -1,12 +1,8 @@
 package net.bladehunt.kotstom.extension
 
-import net.minestom.server.inventory.ContainerInventory
 import net.minestom.server.inventory.Inventory
 import net.minestom.server.inventory.InventoryType
-import net.minestom.server.inventory.PlayerInventory
-import net.minestom.server.inventory.click.Click
 import net.minestom.server.item.ItemStack
-import net.minestom.server.utils.inventory.PlayerInventoryUtils
 
 /**
  * Returns the row size of an inventory.
@@ -54,7 +50,7 @@ operator fun Inventory.set(slot: Int, itemStack: ItemStack) {
  *
  * @author oglassdev
  */
-operator fun ContainerInventory.get(x: Int, y: Int): ItemStack =
+operator fun Inventory.get(x: Int, y: Int): ItemStack =
     this.getItemStack(y * inventoryType.rowSize + x)
 
 /**
@@ -62,46 +58,6 @@ operator fun ContainerInventory.get(x: Int, y: Int): ItemStack =
  *
  * @author oglassdev
  */
-operator fun ContainerInventory.set(x: Int, y: Int, itemStack: ItemStack) {
+operator fun Inventory.set(x: Int, y: Int, itemStack: ItemStack) {
     this.setItemStack(y * inventoryType.rowSize + x, itemStack)
 }
-
-/**
- * Helper method for getting an ItemStack from an `Inventory` or a `PlayerInventory`, depending on
- * the slot
- *
- * @author oglassdev
- */
-fun getItemStack(slot: Int, inventory: Inventory, playerInventory: PlayerInventory): ItemStack {
-    return if (slot < inventory.size) {
-        inventory[slot]
-    } else {
-        playerInventory[PlayerInventoryUtils.protocolToMinestom(slot, inventory.size)]
-    }
-}
-
-/**
- * Returns the slots involved in a `Click.Info`. If the `Click.Info` is a `Click.Info.HotbarSwap`,
- * then a list of the hotbarSlot and the clickedSlot is returned.
- *
- * @author oglassdev
- */
-val Click.Info.slots: List<Int>
-    get() {
-        return when (this) {
-            is Click.Info.CreativeSetItem -> listOf(this.slot)
-            is Click.Info.Double -> listOf(this.slot)
-            is Click.Info.DropSlot -> listOf(this.slot)
-            is Click.Info.Left -> listOf(this.slot)
-            is Click.Info.LeftShift -> listOf(this.slot)
-            is Click.Info.Middle -> listOf(this.slot)
-            is Click.Info.OffhandSwap -> listOf(this.slot)
-            is Click.Info.Right -> listOf(this.slot)
-            is Click.Info.RightShift -> listOf(this.slot)
-            is Click.Info.HotbarSwap -> listOf(this.hotbarSlot, this.clickedSlot)
-            is Click.Info.LeftDrag -> this.slots
-            is Click.Info.MiddleDrag -> this.slots
-            is Click.Info.RightDrag -> this.slots
-            else -> emptyList()
-        }
-    }

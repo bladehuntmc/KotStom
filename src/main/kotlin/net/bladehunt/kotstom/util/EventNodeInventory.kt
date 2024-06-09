@@ -8,7 +8,7 @@ import net.minestom.server.event.EventHandler
 import net.minestom.server.event.EventNode
 import net.minestom.server.event.inventory.*
 import net.minestom.server.event.trait.InventoryEvent
-import net.minestom.server.inventory.ContainerInventory
+import net.minestom.server.inventory.Inventory
 import net.minestom.server.inventory.InventoryType
 
 /**
@@ -19,8 +19,8 @@ import net.minestom.server.inventory.InventoryType
  * @param title The inventory's title
  * @author oglassdev
  */
-open class EventNodeContainerInventory(inventoryType: InventoryType, title: Component) :
-    ContainerInventory(inventoryType, title), EventHandler<InventoryEvent> {
+open class EventNodeInventory(inventoryType: InventoryType, title: Component) :
+    Inventory(inventoryType, title), EventHandler<InventoryEvent> {
     private companion object {
         init {
             EventNode.type("EventNodeContainerInventory.Companion.eventNode", EventFilter.INVENTORY)
@@ -29,15 +29,13 @@ open class EventNodeContainerInventory(inventoryType: InventoryType, title: Comp
                     listen<InventoryClickEvent>(::handleEvent)
                     listen<InventoryCloseEvent>(::handleEvent)
                     listen<InventoryOpenEvent>(::handleEvent)
-                    listen<InventoryButtonClickEvent>(::handleEvent)
                     listen<InventoryItemChangeEvent>(::handleEvent)
-                    listen<InventoryPostClickEvent>(::handleEvent)
                     GlobalEventHandler.addChild(this)
                 }
         }
 
         private fun <T : InventoryEvent> handleEvent(event: T) {
-            val inventory = event.inventory as? EventNodeContainerInventory ?: return
+            val inventory = event.inventory as? EventNodeInventory ?: return
             inventory.eventNode().call(event)
         }
     }
