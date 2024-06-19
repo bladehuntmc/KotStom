@@ -55,7 +55,7 @@ dependencies {
 }
 
 tasks.named<ShadowJar>("shadowJar") {
-    archiveBaseName = "kotstom"
+    archiveBaseName.set("kotstom")
     mergeServiceFiles()
     minimize()
 }
