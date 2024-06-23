@@ -11,3 +11,4 @@ plugins {
 
 rootProject.name = "KotStom"
 include("example")
+include("adventure-serialization")

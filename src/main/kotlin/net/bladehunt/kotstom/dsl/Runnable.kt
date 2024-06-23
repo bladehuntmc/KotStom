@@ -15,7 +15,7 @@ import net.minestom.server.timer.TaskSchedule
 data class RunnableBuilder(
     var delay: TaskSchedule = TaskSchedule.immediate(),
     var repeat: TaskSchedule = TaskSchedule.stop(),
-    var executionType: ExecutionType = ExecutionType.SYNC,
+    var executionType: ExecutionType = ExecutionType.TICK_START,
     private var block: MinestomRunnable.() -> Unit = {}
 ) {
     @RunnableDSL
