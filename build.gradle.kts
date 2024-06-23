@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.0.0"
-    kotlin("plugin.serialization") version "2.0.0"
     id("io.github.goooler.shadow") version "8.1.7"
 
     `maven-publish`
@@ -37,9 +36,10 @@ allprojects {
     }
 }
 
-java { withSourcesJar() }
-
-subprojects { apply(plugin = "org.jetbrains.kotlin.jvm") }
+subprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "maven-publish")
+}
 
 dependencies {
     compileOnly("net.minestom", "minestom-snapshots", property("minestom.version") as String)
@@ -63,6 +63,8 @@ tasks.named<ShadowJar>("shadowJar") {
 tasks.withType<Test> { useJUnitPlatform() }
 
 tasks.build { dependsOn("shadowJar") }
+
+java { withSourcesJar() }
 
 publishing {
     publications {

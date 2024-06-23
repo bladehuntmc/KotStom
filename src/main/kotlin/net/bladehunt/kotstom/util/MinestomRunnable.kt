@@ -27,7 +27,7 @@ abstract class MinestomRunnable(
         scheduler.buildTask(this).let {
             if (delaySchedule != TaskSchedule.immediate()) it.delay(delaySchedule)
             if (repeatSchedule != TaskSchedule.stop()) it.repeat(repeatSchedule)
-            if (executionType != ExecutionType.SYNC) it.executionType(executionType)
+            if (executionType != ExecutionType.TICK_START) it.executionType(executionType)
 
             it.schedule().also { task -> this.task = task }
         }
