@@ -7,11 +7,15 @@ import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.modules.SerializersModule
 import net.kyori.adventure.nbt.*
 
 @ExperimentalSerializationApi
 @InternalSerializationApi
 internal abstract class AbstractAdventureEncoder : AdventureEncoder, CompositeEncoder {
+    override val serializersModule: SerializersModule
+        get() = adventureNbt.serializersModule
+
     override fun encodeNull() {
         throw SerializationException("'null' is not supported by default")
     }

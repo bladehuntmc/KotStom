@@ -6,10 +6,14 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.modules.SerializersModule
 
 @ExperimentalSerializationApi
 @InternalSerializationApi
 internal abstract class AbstractAdventureDecoder : AdventureDecoder, CompositeDecoder {
+    override val serializersModule: SerializersModule
+        get() = adventureNbt.serializersModule
+
     final override fun decodeBooleanElement(descriptor: SerialDescriptor, index: Int): Boolean =
         decodeBoolean()
 
