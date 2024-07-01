@@ -1,61 +1,60 @@
 package net.bladehunt.kotstom.serialization.adventure
 
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.AbstractEncoder
-import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.modules.SerializersModule
-import net.kyori.adventure.nbt.*
+import kotlinx.serialization.descriptors.StructureKind
+import kotlinx.serialization.encoding.CompositeEncoder
+import kotlinx.serialization.findPolymorphicSerializer
+import kotlinx.serialization.internal.AbstractPolymorphicSerializer
+import net.bladehunt.kotstom.serialization.adventure.internal.AbstractAdventureEncoder
+import net.bladehunt.kotstom.serialization.adventure.internal.Consumer
+import net.kyori.adventure.nbt.BinaryTag
+import net.kyori.adventure.nbt.ListBinaryTag
+import net.kyori.adventure.nbt.StringBinaryTag
 
-@OptIn(ExperimentalSerializationApi::class)
-class AdventureListEncoder(
-    private val adventureSerializer: AdventureSerializer,
-    val consumeValue: ((ListBinaryTag) -> Unit)
-) : AbstractEncoder() {
-    private val tags = arrayListOf<BinaryTag>()
+@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
+internal class AdventureListEncoder(
+    override val adventureNbt: AdventureNbt,
+    private val consumer: Consumer<ListBinaryTag>? = null
+) : AbstractAdventureEncoder() {
+    private val tags: MutableList<BinaryTag> = arrayListOf()
 
-    override val serializersModule: SerializersModule
-        get() = adventureSerializer.serializersModule
-
-    override fun encodeBoolean(value: Boolean) {
-        tags += if (value) ByteBinaryTag.ONE else ByteBinaryTag.ZERO
+    override fun encodeBinaryTag(binaryTag: BinaryTag) {
+        tags.add(binaryTag)
     }
 
-    override fun encodeByte(value: Byte) {
-        tags += ByteBinaryTag.byteBinaryTag(value)
+    override fun toBinaryTag(): ListBinaryTag = ListBinaryTag.from(tags)
+
+    override fun <T> encodeSerializableValue(serializer: SerializationStrategy<T>, value: T) {
+        if (serializer !is AbstractPolymorphicSerializer<*>)
+            return super.encodeSerializableValue(serializer, value)
+
+        @Suppress("UNCHECKED_CAST") val casted = serializer as AbstractPolymorphicSerializer<Any>
+
+        val encoder = AdventureCompoundEncoder(adventureNbt) { encodeBinaryTag(it) }
+        val actual = casted.findPolymorphicSerializer(encoder, value as Any)
+
+        encoder.encodeTaggedBinaryTag(
+            adventureNbt.discriminator,
+            StringBinaryTag.stringBinaryTag(actual.descriptor.serialName))
+
+        actual.serialize(encoder, value)
     }
 
-    override fun encodeChar(value: Char) = encodeString(value.toString())
-
-    override fun encodeDouble(value: Double) {
-        tags += DoubleBinaryTag.doubleBinaryTag(value)
-    }
-
-    override fun encodeEnum(enumDescriptor: SerialDescriptor, index: Int) = encodeInt(index)
-
-    override fun encodeFloat(value: Float) {
-        tags += FloatBinaryTag.floatBinaryTag(value)
-    }
-
-    override fun encodeInline(descriptor: SerialDescriptor): Encoder = this
-
-    override fun encodeInt(value: Int) {
-        tags += IntBinaryTag.intBinaryTag(value)
-    }
-
-    override fun encodeLong(value: Long) {
-        tags += LongBinaryTag.longBinaryTag(value)
-    }
-
-    override fun encodeShort(value: Short) {
-        tags += ShortBinaryTag.shortBinaryTag(value)
-    }
-
-    override fun encodeString(value: String) {
-        tags += StringBinaryTag.stringBinaryTag(value)
+    override fun beginStructure(descriptor: SerialDescriptor): CompositeEncoder {
+        return when (descriptor.kind) {
+            is StructureKind.LIST -> {
+                AdventureListEncoder(adventureNbt) { encodeBinaryTag(it) }
+            }
+            else -> {
+                AdventureCompoundEncoder(adventureNbt) { encodeBinaryTag(it) }
+            }
+        }
     }
 
     override fun endStructure(descriptor: SerialDescriptor) {
-        consumeValue(ListBinaryTag.from(tags))
+        consumer?.invoke(toBinaryTag())
     }
 }
