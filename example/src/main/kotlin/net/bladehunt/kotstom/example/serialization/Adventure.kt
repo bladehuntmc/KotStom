@@ -1,8 +1,7 @@
 package net.bladehunt.kotstom.example.serialization
 
 import kotlinx.serialization.Serializable
-import net.bladehunt.kotstom.serialization.adventure.decodeFromCompound
-import net.bladehunt.kotstom.serialization.adventure.encodeToCompound
+import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
 import net.kyori.adventure.nbt.TagStringIOExt
 
 @Serializable data class InnerExample(val name: String, val address: String, val age: Int)
@@ -29,11 +28,11 @@ fun main() {
             InnerExample("hello earth", "the world", 46),
             true)
 
-    val valueAsCompound = encodeToCompound(valueToSerialize)
+    val valueAsCompound = AdventureNbt.encodeToCompound(valueToSerialize)
 
     println(TagStringIOExt.writeTag(valueAsCompound))
 
-    val decodedValue = decodeFromCompound<Test>(valueAsCompound)
+    val decodedValue = AdventureNbt.decodeFromCompound<Test>(valueAsCompound)
 
     println("Is the value the same? ${valueToSerialize == decodedValue}")
 }

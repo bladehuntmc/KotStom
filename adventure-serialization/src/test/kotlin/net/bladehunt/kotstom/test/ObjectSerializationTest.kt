@@ -3,8 +3,8 @@ package net.bladehunt.kotstom.test
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.Serializable
-import net.bladehunt.kotstom.serialization.adventure.decodeFromCompound
-import net.bladehunt.kotstom.serialization.adventure.encodeToCompound
+import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
+import net.kyori.adventure.nbt.TagStringIO
 
 @Serializable
 data class Data(
@@ -36,9 +36,11 @@ class ObjectSerializationTest :
                     "Value",
                     true)
 
-            val valueAsCompound = encodeToCompound(valueToSerialize)
+            val valueAsCompound = AdventureNbt.encodeToCompound(valueToSerialize)
+            println(TagStringIO.get().asString(valueAsCompound))
 
-            val decodedValue = decodeFromCompound<Data>(valueAsCompound)
+            val decodedValue = AdventureNbt.decodeFromCompound<Data>(valueAsCompound)
+            println(decodedValue)
 
             valueToSerialize shouldBe decodedValue
         }
