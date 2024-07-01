@@ -75,12 +75,10 @@ publishing {
     }
     repositories {
         maven {
-            url = uri("https://gitlab.com/api/v4/projects/56581102/packages/maven")
-            credentials(HttpHeaderCredentials::class) {
-                name = "Job-Token"
-                value = properties["CI_JOB_TOKEN"] as String?
-            }
-            authentication { create("header", HttpHeaderAuthentication::class) }
+            name = "myDomainRepository"
+            url = uri("https://mvn.bladehunt.net/releases")
+            credentials(PasswordCredentials::class)
+            authentication { create<BasicAuthentication>("basic") }
         }
     }
 }
