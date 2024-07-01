@@ -75,9 +75,12 @@ publishing {
     }
     repositories {
         maven {
-            name = "myDomainRepository"
+            name = "releases"
             url = uri("https://mvn.bladehunt.net/releases")
-            credentials(PasswordCredentials::class)
+            credentials(PasswordCredentials::class) {
+                username = System.getenv("MAVEN_NAME")
+                password = System.getenv("MAVEN_SECRET")
+            }
             authentication { create<BasicAuthentication>("basic") }
         }
     }
