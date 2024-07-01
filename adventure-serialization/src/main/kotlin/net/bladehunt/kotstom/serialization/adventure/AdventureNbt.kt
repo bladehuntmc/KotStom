@@ -1,23 +1,20 @@
 package net.bladehunt.kotstom.serialization.adventure
 
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.InternalSerializationApi
-import kotlinx.serialization.SerialFormat
+import kotlin.reflect.KClass
+import kotlinx.serialization.*
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.serializer
 import net.kyori.adventure.nbt.CompoundBinaryTag
-import kotlin.reflect.KClass
 
-sealed class AdventureSerializer(
-    val encodeDefaults: Boolean = false,
+sealed class AdventureNbt(
+    val discriminator: String = "type",
     override val serializersModule: SerializersModule = EmptySerializersModule()
 ) : SerialFormat {
-    @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
+    @OptIn(InternalSerializationApi::class)
     fun <T : Any> encodeToCompound(clazz: KClass<T>, value: T): CompoundBinaryTag {
-        val encoder = AdventureEncoder(this)
+        val encoder = AdventureCompoundEncoder(this)
         encoder.encodeSerializableValue(clazz.serializer(), value)
-        return encoder.asCompound()
+        return encoder.toBinaryTag()
     }
 
     inline fun <reified T : Any> encodeToCompound(value: T): CompoundBinaryTag =
@@ -25,16 +22,11 @@ sealed class AdventureSerializer(
 
     @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
     fun <T : Any> decodeFromCompound(clazz: KClass<T>, compoundBinaryTag: CompoundBinaryTag): T =
-        AdventureDecoder(this, compoundBinaryTag).decodeSerializableValue(clazz.serializer())
+        AdventureCompoundDecoder(this, compoundBinaryTag)
+            .decodeSerializableValue(clazz.serializer())
 
     inline fun <reified T : Any> decodeFromCompound(compoundBinaryTag: CompoundBinaryTag): T =
         decodeFromCompound(T::class, compoundBinaryTag)
 
-    companion object Default : AdventureSerializer()
+    companion object Default : AdventureNbt()
 }
-
-inline fun <reified T : Any> encodeToCompound(value: T): CompoundBinaryTag =
-    AdventureSerializer.encodeToCompound(T::class, value)
-
-inline fun <reified T : Any> decodeFromCompound(compoundBinaryTag: CompoundBinaryTag): T =
-    AdventureSerializer.decodeFromCompound(T::class, compoundBinaryTag)

@@ -3,8 +3,7 @@ package net.bladehunt.kotstom.test
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.Serializable
-import net.bladehunt.kotstom.serialization.adventure.decodeFromCompound
-import net.bladehunt.kotstom.serialization.adventure.encodeToCompound
+import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
 
 @Serializable
 sealed interface Poly {
@@ -18,9 +17,9 @@ class PolymorphismTest :
         test("polymorphism should work") {
             val valueToSerialize = Poly.Wants("cracker")
 
-            val serializedValue = encodeToCompound<Poly>(valueToSerialize)
+            val serializedValue = AdventureNbt.encodeToCompound<Poly>(valueToSerialize)
 
-            val decodedValue = decodeFromCompound<Poly>(serializedValue)
+            val decodedValue = AdventureNbt.decodeFromCompound<Poly>(serializedValue)
 
             valueToSerialize shouldBe decodedValue
         }

@@ -3,8 +3,7 @@ package net.bladehunt.kotstom.test
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.Serializable
-import net.bladehunt.kotstom.serialization.adventure.decodeFromCompound
-import net.bladehunt.kotstom.serialization.adventure.encodeToCompound
+import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
 
 @Serializable data class Everything(val listData: ListData, val data: Data, val poly: Poly)
 
@@ -26,9 +25,9 @@ class AllTest :
                         true),
                     Poly.Wants("cracker"))
 
-            val valueAsCompound = encodeToCompound(valueToSerialize)
+            val valueAsCompound = AdventureNbt.encodeToCompound(valueToSerialize)
 
-            val decodedValue = decodeFromCompound<Everything>(valueAsCompound)
+            val decodedValue = AdventureNbt.decodeFromCompound<Everything>(valueAsCompound)
 
             valueToSerialize shouldBe decodedValue
         }
