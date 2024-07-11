@@ -1,10 +1,11 @@
 plugins { kotlin("plugin.serialization") version "2.0.0" }
 
 dependencies {
-    implementation("net.minestom", "minestom-snapshots", property("minestom.version") as String)
+    implementation(libs.minestom)
+    implementation(libs.adventure.minimessage)
 
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-    api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation(libs.kotlinx.coroutines)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":"))
     implementation(project(":adventure-serialization"))

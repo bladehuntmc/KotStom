@@ -42,16 +42,16 @@ subprojects {
 }
 
 dependencies {
-    compileOnly("net.minestom", "minestom-snapshots", property("minestom.version") as String)
-    api("net.kyori:adventure-text-minimessage:4.17.0")
+    compileOnly(libs.minestom)
+    compileOnly(libs.adventure.minimessage)
 
     compileOnly(kotlin("reflect"))
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0-RC")
+    compileOnly(libs.kotlinx.coroutines)
+    compileOnly(libs.kotlinx.serialization.json)
 
-    testImplementation("net.minestom", "minestom-snapshots", property("minestom.version") as String)
-    testImplementation("io.kotest:kotest-assertions-core:5.9.0")
-    testImplementation("io.kotest:kotest-runner-junit5:5.9.0")
+    testImplementation(libs.minestom)
+    testImplementation(libs.adventure.minimessage)
+    testImplementation(libs.bundles.test)
 }
 
 tasks.named<ShadowJar>("shadowJar") {
