@@ -4,11 +4,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.0.0"
-    id("io.github.goooler.shadow") version "8.1.7"
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.dokka)
 
     `maven-publish`
-
-    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 allprojects {
@@ -44,10 +43,7 @@ subprojects {
 dependencies {
     compileOnly(libs.minestom)
     compileOnly(libs.adventure.minimessage)
-
-    compileOnly(kotlin("reflect"))
     compileOnly(libs.kotlinx.coroutines)
-    compileOnly(libs.kotlinx.serialization.json)
 
     testImplementation(libs.minestom)
     testImplementation(libs.adventure.minimessage)
