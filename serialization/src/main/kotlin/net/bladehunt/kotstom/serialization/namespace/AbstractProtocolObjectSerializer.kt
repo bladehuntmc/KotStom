@@ -8,9 +8,13 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import net.minestom.server.registry.StaticProtocolObject
 import net.minestom.server.utils.NamespaceID
+import kotlin.reflect.KClass
 
 abstract class AbstractProtocolObjectSerializer<T : StaticProtocolObject>(serialName: String) :
     KSerializer<T> {
+
+    constructor(clazz: KClass<T>) : this(requireNotNull(clazz.qualifiedName))
+
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor(serialName, PrimitiveKind.STRING)
 

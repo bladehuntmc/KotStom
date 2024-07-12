@@ -1,15 +1,15 @@
 package net.bladehunt.kotstom.serialization.uuid
 
-import java.util.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
+import java.util.*
 
 object UuidSerializer : KSerializer<UUID> {
     override val descriptor: SerialDescriptor =
-        buildClassSerialDescriptor("UUID") {
+        buildClassSerialDescriptor(UUID::class.qualifiedName!!) {
             element<Long>("leastSignificantBits")
             element<Long>("mostSignificantBits")
         }

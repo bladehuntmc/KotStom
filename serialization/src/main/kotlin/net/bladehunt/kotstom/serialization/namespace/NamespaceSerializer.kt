@@ -10,7 +10,7 @@ import net.minestom.server.utils.NamespaceID
 
 object NamespaceSerializer : KSerializer<NamespaceID> {
     override val descriptor: SerialDescriptor =
-        PrimitiveSerialDescriptor("NamespaceID", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor(NamespaceID::class.qualifiedName!!, PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): NamespaceID =
         NamespaceID.from(decoder.decodeString())
