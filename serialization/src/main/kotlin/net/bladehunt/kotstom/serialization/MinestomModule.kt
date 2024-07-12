@@ -1,6 +1,5 @@
 package net.bladehunt.kotstom.serialization
 
-import java.util.*
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.SerializersModuleBuilder
 import kotlinx.serialization.modules.polymorphic
@@ -21,6 +20,7 @@ import net.minestom.server.entity.EntityType
 import net.minestom.server.item.Material
 import net.minestom.server.potion.PotionEffect
 import net.minestom.server.utils.NamespaceID
+import java.util.*
 
 internal fun SerializersModuleBuilder.registerDefaultModules() {
     polymorphic(Point::class) {
@@ -28,6 +28,10 @@ internal fun SerializersModuleBuilder.registerDefaultModules() {
         subclass(Pos::class, PosSerializer)
         subclass(Vec::class, VecSerializer)
     }
+
+    contextual(BlockVec::class, BlockVecSerializer)
+    contextual(Pos::class, PosSerializer)
+    contextual(Vec::class, VecSerializer)
 
     contextual(NamespaceID::class, NamespaceSerializer)
     contextual(Material::class, MaterialSerializer)
