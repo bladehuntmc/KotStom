@@ -5,8 +5,10 @@ repositories { mavenCentral() }
 dependencies {
     compileOnly(libs.minestom)
     compileOnly(libs.kotlinx.serialization.core)
+    compileOnly(libs.adventure.minimessage)
 
     testImplementation(libs.minestom)
+    testImplementation(libs.kotlinx.serialization.json)
     testImplementation(libs.bundles.test)
 }
 
