@@ -9,7 +9,7 @@ import net.minestom.server.coordinate.Pos
 
 object PosSerializer : KSerializer<Pos> {
     override val descriptor: SerialDescriptor =
-        buildClassSerialDescriptor(Pos::class.qualifiedName!!) {
+        buildClassSerialDescriptor(Pos::class.simpleName!!) {
             element<Double>("x")
             element<Double>("y")
             element<Double>("z")

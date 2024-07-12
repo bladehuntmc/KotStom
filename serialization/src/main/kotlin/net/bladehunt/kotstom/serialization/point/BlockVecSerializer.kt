@@ -9,7 +9,7 @@ import net.minestom.server.coordinate.BlockVec
 
 object BlockVecSerializer : KSerializer<BlockVec> {
     override val descriptor: SerialDescriptor =
-        buildClassSerialDescriptor(BlockVec::class.qualifiedName!!) {
+        buildClassSerialDescriptor(BlockVec::class.simpleName!!) {
             element<Double>("x")
             element<Double>("y")
             element<Double>("z")
