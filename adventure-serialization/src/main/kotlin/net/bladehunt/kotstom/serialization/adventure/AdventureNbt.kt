@@ -1,16 +1,28 @@
 package net.bladehunt.kotstom.serialization.adventure
 
 import kotlin.reflect.KClass
-import kotlinx.serialization.*
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.SerialFormat
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.serializer
 import net.kyori.adventure.nbt.CompoundBinaryTag
 
-sealed class AdventureNbt(
+open class AdventureNbt(
     val discriminator: String = "type",
     val shouldEncodeDefaults: Boolean = false,
     override val serializersModule: SerializersModule = EmptySerializersModule()
 ) : SerialFormat {
+    data class Builder(
+        var discriminator: String = "type",
+        var shouldEncodeDefaults: Boolean = false,
+        var serializersModule: SerializersModule? = null
+    ) {
+        fun build(): AdventureNbt =
+            AdventureNbt(
+                discriminator, shouldEncodeDefaults, serializersModule ?: EmptySerializersModule())
+    }
+
     @OptIn(InternalSerializationApi::class)
     fun <T : Any> encodeToCompound(clazz: KClass<T>, value: T): CompoundBinaryTag {
         val encoder = AdventureCompoundEncoder(this)
@@ -31,3 +43,6 @@ sealed class AdventureNbt(
 
     companion object Default : AdventureNbt()
 }
+
+inline fun AdventureNbt(block: (AdventureNbt.Builder) -> Unit): AdventureNbt =
+    AdventureNbt.Builder().apply(block).build()
