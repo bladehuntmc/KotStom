@@ -13,14 +13,16 @@ import net.bladehunt.kotstom.serialization.adventure.internal.TaggedAdventureEnc
 import net.kyori.adventure.nbt.BinaryTag
 import net.kyori.adventure.nbt.CompoundBinaryTag
 
-@OptIn(InternalSerializationApi::class)
+@OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
 internal class AdventureCompoundEncoder(
     override val adventureNbt: AdventureNbt,
     private val consumer: Consumer<CompoundBinaryTag>? = null
 ) : TaggedAdventureEncoder() {
     private val tags: MutableMap<String, BinaryTag> = linkedMapOf()
 
-    @OptIn(ExperimentalSerializationApi::class)
+    override fun shouldEncodeElementDefault(descriptor: SerialDescriptor, index: Int): Boolean =
+        adventureNbt.shouldEncodeDefaults
+
     override fun <T> encodeSerializableValue(serializer: SerializationStrategy<T>, value: T) {
         if (serializer !is AbstractPolymorphicSerializer<*>)
             return super.encodeSerializableValue(serializer, value)
@@ -43,7 +45,6 @@ internal class AdventureCompoundEncoder(
         tags[tag] = binaryTag
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
     override fun beginStructure(descriptor: SerialDescriptor): CompositeEncoder {
         if (currentTagOrNull == null) return super.beginStructure(descriptor)
 

@@ -19,6 +19,8 @@ internal class AdventureListDecoder(
 ) : AbstractAdventureDecoder() {
     private var index = -1
 
+    override fun decodeSequentially(): Boolean = true
+
     override fun decodeElementIndex(descriptor: SerialDescriptor): Int {
         index++
         return if (index == list.size()) CompositeDecoder.DECODE_DONE else index

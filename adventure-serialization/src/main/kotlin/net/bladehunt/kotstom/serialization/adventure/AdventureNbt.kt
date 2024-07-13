@@ -8,6 +8,7 @@ import net.kyori.adventure.nbt.CompoundBinaryTag
 
 sealed class AdventureNbt(
     val discriminator: String = "type",
+    val shouldEncodeDefaults: Boolean = false,
     override val serializersModule: SerializersModule = EmptySerializersModule()
 ) : SerialFormat {
     @OptIn(InternalSerializationApi::class)
@@ -20,7 +21,7 @@ sealed class AdventureNbt(
     inline fun <reified T : Any> encodeToCompound(value: T): CompoundBinaryTag =
         encodeToCompound(T::class, value)
 
-    @OptIn(InternalSerializationApi::class, ExperimentalSerializationApi::class)
+    @OptIn(InternalSerializationApi::class)
     fun <T : Any> decodeFromCompound(clazz: KClass<T>, compoundBinaryTag: CompoundBinaryTag): T =
         AdventureCompoundDecoder(this, compoundBinaryTag)
             .decodeSerializableValue(clazz.serializer())
