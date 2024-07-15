@@ -5,7 +5,13 @@ import io.kotest.matchers.shouldBe
 import kotlinx.serialization.Serializable
 import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
 
-@Serializable data class Everything(val listData: ListData, val data: Data, val poly: Poly)
+@Serializable
+private data class Everything(
+    val listData: ListData,
+    val data: Data,
+    val poly: Poly,
+    val enum: TestEnum
+)
 
 class AllTest :
     FunSpec({
@@ -23,12 +29,13 @@ class AllTest :
                         Data.Inner("Jane Doe", "John's House", 39),
                         "Value",
                         true),
-                    Poly.Wants("cracker"))
+                    Poly.Wants("cracker"),
+                    TestEnum.THIRD)
 
             val valueAsCompound = AdventureNbt.encodeToCompound(valueToSerialize)
 
             val decodedValue = AdventureNbt.decodeFromCompound<Everything>(valueAsCompound)
 
-            valueToSerialize shouldBe decodedValue
+            decodedValue shouldBe valueToSerialize
         }
     })

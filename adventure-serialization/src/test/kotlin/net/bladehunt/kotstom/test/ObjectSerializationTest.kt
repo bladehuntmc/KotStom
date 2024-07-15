@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.Serializable
 import net.bladehunt.kotstom.serialization.adventure.AdventureNbt
-import net.kyori.adventure.nbt.TagStringIO
 
 @Serializable
 data class Data(
@@ -37,10 +36,8 @@ class ObjectSerializationTest :
                     true)
 
             val valueAsCompound = AdventureNbt.encodeToCompound(valueToSerialize)
-            println(TagStringIO.get().asString(valueAsCompound))
 
             val decodedValue = AdventureNbt.decodeFromCompound<Data>(valueAsCompound)
-            println(decodedValue)
 
             valueToSerialize shouldBe decodedValue
         }
