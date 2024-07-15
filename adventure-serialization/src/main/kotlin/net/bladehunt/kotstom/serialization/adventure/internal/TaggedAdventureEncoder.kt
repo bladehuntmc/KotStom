@@ -1,6 +1,7 @@
 package net.bladehunt.kotstom.serialization.adventure.internal
 
 import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.internal.NamedValueEncoder
 import kotlinx.serialization.modules.SerializersModule
 import net.kyori.adventure.nbt.*
@@ -38,6 +39,12 @@ internal abstract class TaggedAdventureEncoder : AdventureEncoder, NamedValueEnc
 
     final override fun encodeTaggedString(tag: String, value: String): Unit =
         encodeTaggedBinaryTag(tag, StringBinaryTag.stringBinaryTag(value))
+
+    final override fun encodeTaggedEnum(
+        tag: String,
+        enumDescriptor: SerialDescriptor,
+        ordinal: Int
+    ): Unit = encodeTaggedInt(tag, ordinal)
 
     final override fun encodeBinaryTag(binaryTag: BinaryTag) =
         encodeTaggedBinaryTag(popTag(), binaryTag)

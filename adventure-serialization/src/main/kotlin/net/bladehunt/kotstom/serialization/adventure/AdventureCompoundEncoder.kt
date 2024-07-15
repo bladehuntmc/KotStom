@@ -34,7 +34,7 @@ internal class AdventureCompoundEncoder(
                 AdventureCompoundEncoder(adventureNbt) {
                     it.forEach { (key, tag) -> tags[key] = tag }
                 }
-            else AdventureCompoundEncoder(adventureNbt) { encodeTaggedBinaryTag(currentTag, it) }
+            else AdventureCompoundEncoder(adventureNbt) { encodeTaggedBinaryTag(popTag(), it) }
         val actual = casted.findPolymorphicSerializer(encoder, value as Any)
 
         encoder.encodeTaggedString(adventureNbt.discriminator, actual.descriptor.serialName)
