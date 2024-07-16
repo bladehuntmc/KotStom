@@ -5,7 +5,6 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.*
-import net.bladehunt.kotstom.serialization.point.VecSerializer
 import net.kyori.adventure.sound.Sound
 
 object SoundSerializer : KSerializer<Sound> {
@@ -23,7 +22,7 @@ object SoundSerializer : KSerializer<Sound> {
             val sound: Sound.Builder = Sound.sound()
 
             while (true) {
-                when (val index = decodeElementIndex(VecSerializer.descriptor)) {
+                when (val index = decodeElementIndex(descriptor)) {
                     0 -> sound.type(decodeSerializableElement(descriptor, 0, KeySerializer))
                     1 ->
                         sound.source(
