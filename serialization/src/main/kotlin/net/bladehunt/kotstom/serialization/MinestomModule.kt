@@ -1,8 +1,10 @@
 package net.bladehunt.kotstom.serialization
 
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.SerializersModuleBuilder
-import kotlinx.serialization.modules.polymorphic
+import java.util.*
+import kotlinx.serialization.modules.*
+import net.bladehunt.kotstom.serialization.adventure.KeySerializer
+import net.bladehunt.kotstom.serialization.adventure.SoundSerializer
+import net.bladehunt.kotstom.serialization.adventure.SoundSourceSerializer
 import net.bladehunt.kotstom.serialization.namespace.EntityTypeSerializer
 import net.bladehunt.kotstom.serialization.namespace.MaterialSerializer
 import net.bladehunt.kotstom.serialization.namespace.NamespaceSerializer
@@ -12,31 +14,27 @@ import net.bladehunt.kotstom.serialization.point.PosSerializer
 import net.bladehunt.kotstom.serialization.point.VecSerializer
 import net.bladehunt.kotstom.serialization.uuid.StringUuidSerializer
 import net.bladehunt.kotstom.serialization.uuid.UuidSerializer
-import net.minestom.server.coordinate.BlockVec
 import net.minestom.server.coordinate.Point
-import net.minestom.server.coordinate.Pos
-import net.minestom.server.coordinate.Vec
-import net.minestom.server.entity.EntityType
-import net.minestom.server.item.Material
-import net.minestom.server.potion.PotionEffect
-import net.minestom.server.utils.NamespaceID
-import java.util.*
 
 internal fun SerializersModuleBuilder.registerDefaultModules() {
     polymorphic(Point::class) {
-        subclass(BlockVec::class, BlockVecSerializer)
-        subclass(Pos::class, PosSerializer)
-        subclass(Vec::class, VecSerializer)
+        subclass(BlockVecSerializer)
+        subclass(PosSerializer)
+        subclass(VecSerializer)
     }
 
-    contextual(BlockVec::class, BlockVecSerializer)
-    contextual(Pos::class, PosSerializer)
-    contextual(Vec::class, VecSerializer)
+    contextual(BlockVecSerializer)
+    contextual(PosSerializer)
+    contextual(VecSerializer)
 
-    contextual(NamespaceID::class, NamespaceSerializer)
-    contextual(Material::class, MaterialSerializer)
-    contextual(EntityType::class, EntityTypeSerializer)
-    contextual(PotionEffect::class, PotionEffectSerializer)
+    contextual(NamespaceSerializer)
+    contextual(MaterialSerializer)
+    contextual(EntityTypeSerializer)
+    contextual(PotionEffectSerializer)
+
+    contextual(KeySerializer)
+    contextual(SoundSerializer)
+    contextual(SoundSourceSerializer)
 }
 
 val MinestomConfigModule = SerializersModule {
