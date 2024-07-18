@@ -1,5 +1,6 @@
 package net.bladehunt.kotstom.extension
 
+import net.minestom.server.inventory.AbstractInventory
 import net.minestom.server.inventory.Inventory
 import net.minestom.server.inventory.InventoryType
 import net.minestom.server.item.ItemStack
@@ -34,14 +35,14 @@ val InventoryType.rowSize: Int
  *
  * @author oglassdev
  */
-operator fun Inventory.get(slot: Int): ItemStack = this.getItemStack(slot)
+operator fun AbstractInventory.get(slot: Int): ItemStack = this.getItemStack(slot)
 
 /**
  * Indexing operator for setting an ItemStack at a position
  *
  * @author oglassdev
  */
-operator fun Inventory.set(slot: Int, itemStack: ItemStack) {
+operator fun AbstractInventory.set(slot: Int, itemStack: ItemStack) {
     this.setItemStack(slot, itemStack)
 }
 

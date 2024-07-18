@@ -1,9 +1,10 @@
 package net.bladehunt.kotstom.extension
 
+import kotlin.math.PI
+import net.minestom.server.coordinate.BlockVec
 import net.minestom.server.coordinate.Point
 import net.minestom.server.coordinate.Pos
 import net.minestom.server.coordinate.Vec
-import kotlin.math.PI
 
 inline val Point.x
     get() = this.x()
@@ -32,11 +33,9 @@ fun Pos.roundToBlock(): Pos =
         this.blockY().toDouble(),
         this.blockZ().toDouble(),
         this.yaw,
-        this.pitch
-    )
+        this.pitch)
 
-fun Vec.roundToBlock(): Vec =
-    Vec(this.blockX().toDouble(), this.blockY().toDouble(), this.blockZ().toDouble())
+fun Vec.roundToBlock(): BlockVec = BlockVec(this.blockX(), this.blockY(), this.blockZ())
 
 fun Vec.rotateAroundXDegrees(degrees: Double) = rotateAroundX(degrees * (PI / 180))
 
@@ -48,13 +47,21 @@ fun Vec.rotateDegrees(degreesX: Double, degreesY: Double, degreesZ: Double) =
     rotate(degreesX * (PI / 180), degreesY * (PI / 180), degreesZ * (PI / 180))
 
 // Division is not needed as it already works
-operator fun Point.plus(other: Point) = this.add(other)
+operator fun Pos.plus(other: Point) = this.add(other)
 
-operator fun Point.minus(other: Point) = this.sub(other)
+operator fun Pos.minus(other: Point) = this.sub(other)
 
-operator fun Point.times(other: Point) = this.mul(other)
+operator fun Pos.times(other: Point) = this.mul(other)
 
-operator fun Point.times(value: Double) = this.mul(value)
+operator fun Pos.times(value: Double) = this.mul(value)
+
+operator fun Vec.plus(other: Point) = this.add(other)
+
+operator fun Vec.minus(other: Point) = this.sub(other)
+
+operator fun Vec.times(other: Point) = this.mul(other)
+
+operator fun Vec.times(value: Double) = this.mul(value)
 
 operator fun Vec.unaryMinus() = this.neg()
 
