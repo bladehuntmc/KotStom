@@ -66,12 +66,15 @@ implementation("net.bladehunt:kotstom-serialization:<version>")
 This module contains some kotlinx.serialization serializers for Minestom.
 
 - Adventure
-    - MiniMessage Serializer
+    - KeySerializer
+    - SoundSerializer
+    - SoundSourceSerializer
+    - MiniMessageSerializer
 - StaticProtocolObject
-    - Material serializer
-    - EntityType serializer
-    - PotionEffect serializer
-    - Namespace serializer
+    - MaterialSerializer
+    - EntityTypeSerializer
+    - PotionEffectSerializer
+    - NamespaceSerializer
 - Point
     - Supports non-content based serialization (Needs a `type` field)
     - Serial names are the simple names
@@ -86,6 +89,6 @@ This module contains some kotlinx.serialization serializers for Minestom.
     - MinestomModule
         - Prefers serializers such as UuidSerializer
     - MinestomConfigModule
-        - Prefers more human readable serializers
+        - Prefers more human-readable serializers
 
 ### For more information, visit [the wiki](https://www.bladehunt.net/developers/kotstom) or view [the example](example/src/main/kotlin)

@@ -1,3 +1,26 @@
+### 0.3.0
+
+- **Breaking Changes**
+    - ItemComponents no longer use invoke in the item builder dsl
+    - Removed `Schedulable.scheduler` because `scheduler()` exists
+- Fixes
+    - Pos and Vec now return the appropriate classes when using operations
+    - Vec now rounds to BlockVec
+    - Get and set operators for inventories now use the super class AbstractInventory
+- Features
+    - `adventure-serialization`
+        - A kotlinx.serialization encoder/decoder for Adventure NBT compounds and lists
+        - Usage: `AdventureNbt.encodeToCompound`, `AdventureNbt.decodeFromCompound`
+        - AdventureNbt can also be instantiated to have custom properties
+            - discriminator (polymorphism)
+            - shouldEncodeDefaults
+            - serializersModule
+    - `serialization`
+        - Minestom/Adventure kotlinx.serialization serializers
+        - Contains `MinestomModule` and `MinestomConfigModule` for their respective serializers
+            - `MinestomModule` serializes things in less human-readable formats
+            - `MinestomConfigModule` serializes things in slightly more human-readable formats, such as UUIDs as strings
+
 ### 0.2.0-beta
 
 - **Breaking Changes**
