@@ -1,4 +1,4 @@
-package net.bladehunt.kotstom.serialization.component
+package net.bladehunt.kotstom.serialization.adventure
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
