@@ -1,6 +1,7 @@
 package net.bladehunt.kotstom.extension.adventure
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -35,7 +36,9 @@ fun String.asLegacyAmpersand(): Component =
  * @return A `Component`
  * @author oglassdev
  */
-fun String.color(color: TextColor?): Component = Component.text(this, color)
+@Deprecated(
+    "Unclear usage", replaceWith = ReplaceWith("text", "net.kyori.adventure.text.Component.text"))
+fun String.color(color: TextColor?): Component = text(this, color)
 
 /**
  * Converts a `String` to a `Component`
@@ -43,7 +46,9 @@ fun String.color(color: TextColor?): Component = Component.text(this, color)
  * @return A `Component`
  * @author oglassdev
  */
-fun String.asComponent(): Component = Component.text(this)
+@Deprecated(
+    "Unclear usage", replaceWith = ReplaceWith("text", "net.kyori.adventure.text.Component.text"))
+fun String.asComponent(): Component = text(this)
 
 /**
  * Converts a `String` to a `Component` with a decoration
@@ -52,5 +57,26 @@ fun String.asComponent(): Component = Component.text(this)
  * @return A `Component`
  * @author oglassdev
  */
+@Deprecated(
+    "Unclear usage", replaceWith = ReplaceWith("text", "net.kyori.adventure.text.Component.text"))
 fun String.decorate(decoration: TextDecoration, value: Boolean = true): Component =
-    Component.text(this).decoration(decoration, value)
+    text(this).decoration(decoration, value)
+
+fun text(content: String, color: TextColor? = null): Component = text(content).color(color)
+
+fun text(
+    content: String,
+    vararg decorations: Pair<TextDecoration, Boolean?>,
+    color: TextColor? = null
+): Component =
+    text(content)
+        .decorations(
+            decorations.associate { (c, b) ->
+                c to
+                    ((b?.let { if (it) TextDecoration.State.TRUE else TextDecoration.State.FALSE })
+                        ?: TextDecoration.State.NOT_SET)
+            })
+        .color(color)
+
+fun text(content: String, vararg decorations: TextDecoration, color: TextColor? = null): Component =
+    text(content).decorate(*decorations).color(color)

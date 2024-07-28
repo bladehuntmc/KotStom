@@ -5,7 +5,7 @@ import net.bladehunt.kotstom.dsl.kommand.buildSyntax
 import net.bladehunt.kotstom.dsl.kommand.kommand
 import net.bladehunt.kotstom.dsl.line
 import net.bladehunt.kotstom.extension.adventure.asMini
-import net.kyori.adventure.text.Component
+import net.bladehunt.kotstom.extension.adventure.text
 import net.kyori.adventure.text.format.NamedTextColor
 
 val KBarCommand = kommand {
@@ -16,9 +16,9 @@ val KBarCommand = kommand {
         executor {
             val kbar =
                 kbar("<white>Hello".asMini()) {
-                    line { display = Component.text("First Line").color(NamedTextColor.WHITE) }
+                    line { display = text("First Line", NamedTextColor.WHITE) }
 
-                    line { display = Component.text("Second Line").color(NamedTextColor.WHITE) }
+                    line { display = text("Second Line", NamedTextColor.WHITE) }
                 }
 
             kbar.addViewer(player)

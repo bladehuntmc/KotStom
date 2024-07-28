@@ -29,6 +29,7 @@ fun main() {
     GlobalEventHandler.builder<PlayerSpawnEvent> {
         expireCount = 10
         filter { it.isFirstSpawn }
+
         asyncHandler { event ->
             event.player.sendMessage("You were within the first 10")
             delay(5000)
@@ -37,12 +38,7 @@ fun main() {
     }
 
     CommandManager.register(
-        ItemCommand,
-        ParticleCommand,
-        RunnableCommand,
-        SuspendingCommand,
-        KBarCommand
-    )
+        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand, KBarCommand)
 
     minecraftServer.start("127.0.0.1", 25565)
 }
