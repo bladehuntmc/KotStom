@@ -2,7 +2,7 @@ package net.bladehunt.kotstom.example.command
 
 import net.bladehunt.kotstom.dsl.kommand.buildSyntax
 import net.bladehunt.kotstom.dsl.kommand.kommand
-import net.bladehunt.kotstom.dsl.runnable
+import net.bladehunt.kotstom.dsl.scheduleTask
 import net.minestom.server.timer.TaskSchedule
 
 val RunnableCommand = kommand {
@@ -11,16 +11,14 @@ val RunnableCommand = kommand {
     buildSyntax {
         onlyPlayers()
         executor {
-            runnable {
-                    var n = 0
-                    repeat = TaskSchedule.seconds(1)
-                    run {
-                        if (n == 10) cancel()
-                        player.sendMessage("This is the $n-th time")
-                        n++
-                    }
+            var n = 0
+
+            player.scheduleTask(
+                delay = TaskSchedule.seconds(1), repeat = TaskSchedule.seconds(1)) { player ->
+                    player.sendMessage("$n times")
+
+                    n++
                 }
-                .schedule(player.scheduler())
         }
     }
 }

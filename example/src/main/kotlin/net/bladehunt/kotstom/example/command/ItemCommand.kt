@@ -3,9 +3,8 @@ package net.bladehunt.kotstom.example.command
 import net.bladehunt.kotstom.dsl.item.*
 import net.bladehunt.kotstom.dsl.kommand.buildSyntax
 import net.bladehunt.kotstom.dsl.kommand.kommand
-import net.bladehunt.kotstom.extension.adventure.asMini
-import net.bladehunt.kotstom.extension.adventure.undecorate
-import net.kyori.adventure.text.Component
+import net.bladehunt.kotstom.extension.adventure.text
+import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import net.minestom.server.item.Material
 import net.minestom.server.item.component.Unbreakable
@@ -18,14 +17,13 @@ val ItemCommand = kommand {
         executor {
             player.inventory.addItemStack(
                 item(Material.SNOW) {
-                    itemName = "<red>Red Snow".asMini()
+                    itemName = text("Red Snow", NamedTextColor.RED)
                     lore {
-                        +"<gold>This is some good snow".asMini()
-                        +Component.text("Maybe...").undecorate(TextDecoration.ITALIC)
+                        +text("This is some good snow", NamedTextColor.GOLD)
+                        +text("Maybe...", TextDecoration.ITALIC to false)
                     }
                     unbreakable = Unbreakable(true)
-                }
-            )
+                })
         }
     }
 }

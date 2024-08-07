@@ -24,7 +24,7 @@ implementation("net.bladehunt:kotstom:<version>")
 
 - Minestom Extensions
     - Tag delegates (`by Tag`)
-    - Scheduler extensions (`#await`)
+    - Scheduler extensions (`#await`, `scheduleTask`)
     - Adventure extensions (`String#color, String#decorate, String#asMini`)
     - CommandManager extension (Register multiple commands at once)
     - Point extensions
@@ -36,7 +36,6 @@ implementation("net.bladehunt:kotstom:<version>")
     - KBar (`kbar`) - Advanced sidebar
     - Particle (`particle`) - Particle packet builder
     - Event (`listen, buildListener`) - Better kotlin support with reified type parameters and better builders
-    - MinestomRunnable (`runnable`) - Builds a task that can be scheduled
 - MinecraftServer
     - Each registry and manager has a corresponding `inline val`
         - e.g. `CommandManager` means `MinecraftServer.getCommandManager()`

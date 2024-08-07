@@ -4,11 +4,9 @@ import net.bladehunt.kotstom.dsl.kbar
 import net.bladehunt.kotstom.dsl.kommand.buildSyntax
 import net.bladehunt.kotstom.dsl.kommand.kommand
 import net.bladehunt.kotstom.dsl.line
-import net.bladehunt.kotstom.dsl.runnable
 import net.bladehunt.kotstom.extension.adventure.asMini
-import net.kyori.adventure.text.Component
+import net.bladehunt.kotstom.extension.adventure.text
 import net.kyori.adventure.text.format.NamedTextColor
-import net.minestom.server.timer.TaskSchedule
 
 val KBarCommand = kommand {
     name = "kbar"
@@ -18,26 +16,12 @@ val KBarCommand = kommand {
         executor {
             val kbar =
                 kbar("<white>Hello".asMini()) {
-                    line {
-                        display = Component.text("First Line").color(NamedTextColor.WHITE)
+                    line { display = text("First Line", NamedTextColor.WHITE) }
 
-                        val task = runnable {
-                            delay = TaskSchedule.seconds(5)
-                            run { display = Component.text("Changed").color(NamedTextColor.WHITE) }
-                        }
-
-                        task.schedule(player.scheduler())
-                    }
-                    line { display = Component.text("Second Line").color(NamedTextColor.WHITE) }
+                    line { display = text("Second Line", NamedTextColor.WHITE) }
                 }
 
             kbar.addViewer(player)
-
-            runnable {
-                    delay = TaskSchedule.seconds(10)
-                    run { kbar.removeViewer(player) }
-                }
-                .schedule(player.scheduler())
         }
     }
 }
