@@ -1,3 +1,18 @@
+### 0.4.0 (Proposed/alpha)
+
+- **Breaking Changes**
+    - `MinestomRunnable` has been removed in favor of a better Scheduler extension
+    - Removed unneeded/strange Adventure extensions
+- Fixes
+    - `MinestomDispatcher` now implements `Delay`
+    - `EventNodeInventory` maps Events using Minestom's internal weak EventNodes instead of creating an unneeded global
+      listener
+- Features
+    - Extension: `MinecraftServer.startSuspending` starts the server using Dispatchers.IO while suspending the current
+      coroutine
+    - Extension: `Entity.editMeta` edits the Entity's meta using a reified type parameter. This is similar to
+      Minestom's `Entity.editEntityMeta`
+
 ### 0.3.0
 
 - **Breaking Changes**

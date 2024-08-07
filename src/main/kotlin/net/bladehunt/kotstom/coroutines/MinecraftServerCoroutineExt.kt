@@ -9,6 +9,7 @@ import net.minestom.server.MinecraftServer
  * Starts a MinecraftServer using Dispatchers.IO This creates the MinecraftServer on another thread.
  *
  * @param address The address to start the server on
+ * @param port The port
  * @author oglassdev
  */
 suspend fun MinecraftServer.startSuspending(address: String, port: Int): Unit =
