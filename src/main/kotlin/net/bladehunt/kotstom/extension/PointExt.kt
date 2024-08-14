@@ -1,10 +1,10 @@
 package net.bladehunt.kotstom.extension
 
-import kotlin.math.PI
 import net.minestom.server.coordinate.BlockVec
 import net.minestom.server.coordinate.Point
 import net.minestom.server.coordinate.Pos
 import net.minestom.server.coordinate.Vec
+import kotlin.math.PI
 
 inline val Point.x
     get() = this.x()
@@ -25,7 +25,13 @@ operator fun Pos.component5() = this.pitch
 
 fun Point.asVec(): Vec = Vec(this.x(), this.y(), this.z())
 
-fun Point.asPos(): Pos = Pos(this)
+fun Point.asPos(): Pos =
+    Pos(
+        this.x,
+        this.y,
+        this.z,
+        if (this is Pos) this.yaw else 0f,
+        if (this is Pos) this.pitch else 0f)
 
 fun Pos.roundToBlock(): Pos =
     Pos(
@@ -35,7 +41,7 @@ fun Pos.roundToBlock(): Pos =
         this.yaw,
         this.pitch)
 
-fun Vec.roundToBlock(): BlockVec = BlockVec(this.blockX(), this.blockY(), this.blockZ())
+fun Vec.roundToBlock(): BlockVec = BlockVec(this)
 
 fun Vec.rotateAroundXDegrees(degrees: Double) = rotateAroundX(degrees * (PI / 180))
 

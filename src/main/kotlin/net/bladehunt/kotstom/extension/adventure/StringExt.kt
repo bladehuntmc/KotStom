@@ -37,7 +37,8 @@ fun String.asLegacyAmpersand(): Component =
  * @author oglassdev
  */
 @Deprecated(
-    "Unclear usage", replaceWith = ReplaceWith("text", "net.kyori.adventure.text.Component.text"))
+    "Unclear usage",
+    replaceWith = ReplaceWith("text(this, color)", "net.kyori.adventure.text.Component.text"))
 fun String.color(color: TextColor?): Component = text(this, color)
 
 /**
@@ -47,7 +48,8 @@ fun String.color(color: TextColor?): Component = text(this, color)
  * @author oglassdev
  */
 @Deprecated(
-    "Unclear usage", replaceWith = ReplaceWith("text", "net.kyori.adventure.text.Component.text"))
+    "Unclear usage",
+    replaceWith = ReplaceWith("text(this)", "net.kyori.adventure.text.Component.text"))
 fun String.asComponent(): Component = text(this)
 
 /**
@@ -58,7 +60,9 @@ fun String.asComponent(): Component = text(this)
  * @author oglassdev
  */
 @Deprecated(
-    "Unclear usage", replaceWith = ReplaceWith("text", "net.kyori.adventure.text.Component.text"))
+    "Unclear usage",
+    replaceWith =
+        ReplaceWith("text(this, decoration to value)", "net.kyori.adventure.text.Component.text"))
 fun String.decorate(decoration: TextDecoration, value: Boolean = true): Component =
     text(this).decoration(decoration, value)
 
