@@ -9,7 +9,7 @@ import net.minestom.server.entity.metadata.EntityMeta
  * @param T The type of EntityMeta
  * @author oglassdev
  */
-inline fun <reified T : EntityMeta> Entity.editMeta(block: T.() -> T) {
+inline fun <reified T : EntityMeta> Entity.editMeta(block: T.() -> Unit) {
     entityMeta.setNotifyAboutChanges(false)
 
     try {
