@@ -46,7 +46,7 @@ fun main() {
     }
 
     CommandManager.register(
-        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand, KBarCommand)
+        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand, ReactiveSidebarCommand)
 
     minecraftServer.start("127.0.0.1", 25565)
 }
