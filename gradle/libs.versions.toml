@@ -1,11 +1,11 @@
 [versions]
-minestom = "79716ab749"
+minestom = "480a7dcaa2"
 adventure = "4.17.0"
 kotlin-reflect = "2.0.0"
-kotlinx-coroutines = "1.9.0-RC"
+kotlinx-coroutines = "1.9.0-RC.2"
 kotlinx-serialization = "1.7.1"
 kotest = "5.9.1"
-minestompvp = "7b5cadcad4"
+minestompvp = "78093fd18b"
 
 shadow = "8.1.8"
 dokka = "1.9.20"
