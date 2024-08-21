@@ -1,6 +1,9 @@
 plugins { kotlin("plugin.serialization") version "2.0.0" }
 
-repositories { mavenCentral() }
+repositories {
+    maven("https://jitpack.io")
+    mavenCentral()
+}
 
 dependencies {
     compileOnly(libs.minestom)
