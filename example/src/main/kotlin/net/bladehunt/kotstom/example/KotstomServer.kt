@@ -3,24 +3,32 @@ package net.bladehunt.kotstom.example
 import kotlinx.coroutines.delay
 import net.bladehunt.kotstom.CommandManager
 import net.bladehunt.kotstom.GlobalEventHandler
-import net.bladehunt.kotstom.InstanceManager
 import net.bladehunt.kotstom.dsl.builder
+import net.bladehunt.kotstom.dsl.instance.buildInstance
+import net.bladehunt.kotstom.dsl.instance.generator
+import net.bladehunt.kotstom.dsl.instance.modify
 import net.bladehunt.kotstom.dsl.listen
 import net.bladehunt.kotstom.example.command.*
+import net.bladehunt.kotstom.extension.adventure.text
 import net.bladehunt.kotstom.extension.register
+import net.kyori.adventure.text.format.TextDecoration
 import net.minestom.server.MinecraftServer
 import net.minestom.server.coordinate.Pos
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent
 import net.minestom.server.event.player.PlayerSpawnEvent
 import net.minestom.server.instance.LightingChunk
 import net.minestom.server.instance.block.Block
+import net.minestom.server.utils.chunk.ChunkSupplier
 
 fun main() {
     val minecraftServer = MinecraftServer.init()
 
-    val instance = InstanceManager.createInstanceContainer()
-    instance.setGenerator { it.modifier().fillHeight(0, 16, Block.BONE_BLOCK) }
-    instance.setChunkSupplier(::LightingChunk)
+    val instance = buildInstance {
+        chunkSupplier = ChunkSupplier(::LightingChunk)
+        generator { modify { fillHeight(0, 16, Block.BONE_BLOCK) } }
+    }
+
+    val hi = text("asd", TextDecoration.ITALIC to true)
 
     GlobalEventHandler.listen<AsyncPlayerConfigurationEvent> { event ->
         event.spawningInstance = instance
@@ -38,7 +46,7 @@ fun main() {
     }
 
     CommandManager.register(
-        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand, KBarCommand)
+        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand, ReactiveSidebarCommand)
 
     minecraftServer.start("127.0.0.1", 25565)
 }

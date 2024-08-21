@@ -1,15 +1,15 @@
 package net.bladehunt.kotstom.coroutines
 
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.resume
 import kotlinx.coroutines.*
 import net.bladehunt.kotstom.SchedulerManager
 import net.bladehunt.kotstom.dsl.scheduleTask
 import net.minestom.server.timer.TaskSchedule
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.resume
 
 /**
  * A `CoroutineDispatcher` that uses Minestom's SchedulerManager to schedule tasks. Note: These are
- * not properly 'asynchronous.' If you need async, use the default dispatcher.
+ * not properly 'asynchronous.' If you need async, use Dispatchers.default.
  *
  * @author oglassdev
  */

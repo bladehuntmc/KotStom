@@ -9,4 +9,4 @@ plugins { id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 
 rootProject.name = "KotStom"
 
-include("example", "adventure-serialization", "serialization")
+include("example", "adventure-serialization", "serialization", "extras")
