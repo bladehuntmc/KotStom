@@ -25,7 +25,9 @@ implementation("net.bladehunt:kotstom:<version>")
 - Minestom Extensions
     - Tag delegates (`by Tag`)
     - Scheduler extensions (`#await`, `scheduleTask`)
-    - Adventure extensions (`String#color, String#decorate, String#asMini`)
+    - Adventure extensions
+        - Better `text` function
+        - `String.asMini` - Converts to MiniMessage. Requires MiniMessage to be in classpath
     - CommandManager extension (Register multiple commands at once)
     - Point extensions
     - Inventory extensions (`Inventory#rowSize, get, set`)
@@ -36,6 +38,7 @@ implementation("net.bladehunt:kotstom:<version>")
     - KBar (`kbar`) - Advanced sidebar
     - Particle (`particle`) - Particle packet builder
     - Event (`listen, buildListener`) - Better kotlin support with reified type parameters and better builders
+    - Instance (`buildInstance`) - InstanceContainer builder
 - MinecraftServer
     - Each registry and manager has a corresponding `inline val`
         - e.g. `CommandManager` means `MinecraftServer.getCommandManager()`
@@ -89,5 +92,16 @@ This module contains some kotlinx.serialization serializers for Minestom.
         - Prefers serializers such as UuidSerializer
     - MinestomConfigModule
         - Prefers more human-readable serializers
+
+### extras
+
+Things that shouldn't just be an extension.
+
+```kotlin
+implementation("net.bladehunt:kotstom-extras:<version>")
+```
+
+- EventNodeInventory - An inventory with a mapped EventNode
+- ReactiveSidebar - A sidebar the uses kotlinx.coroutines. Currently only supports StateFlows.
 
 ### For more information, visit [the wiki](https://www.bladehunt.net/developers/kotstom) or view [the example](example/src/main/kotlin)
