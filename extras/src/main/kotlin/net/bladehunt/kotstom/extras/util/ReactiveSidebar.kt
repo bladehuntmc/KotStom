@@ -1,16 +1,14 @@
 package net.bladehunt.kotstom.extras.util
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import net.kyori.adventure.text.Component
 import net.minestom.server.Viewable
 import net.minestom.server.entity.Player
 import net.minestom.server.scoreboard.Sidebar
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.coroutines.CoroutineContext
 
 /**
  * A Sidebar with automatic line placements
@@ -20,21 +18,22 @@ import kotlin.coroutines.CoroutineContext
  */
 class ReactiveSidebar(
     title: Component = Component.empty(),
-    coroutineContext: CoroutineContext = Dispatchers.Default
-) : Viewable, CoroutineScope by CoroutineScope(coroutineContext) {
+    coroutineContext: CoroutineContext = Dispatchers.Default,
+) : Viewable {
     private val sidebar: Sidebar = Sidebar(title)
     private val lastLine: AtomicInteger = AtomicInteger(-1)
+    private val coroutineScope: CoroutineScope = CoroutineScope(coroutineContext + SupervisorJob())
 
     inner class Line(
         val line: Int = lastLine.getAndIncrement(),
         val id: String = line.toString(),
-        val provider: Line.() -> Component
-    ) : CoroutineScope by CoroutineScope(coroutineContext) {
-        private val tracked: ArrayList<Any> = arrayListOf()
+        val provider: Line.() -> Component,
+    ) {
+        private val tracked: MutableSet<Any> = hashSetOf()
 
         operator fun <T> StateFlow<T>.invoke(): T {
             if (tracked.contains(this)) return value
-            launch { collectLatest { sidebar.updateLineContent(id, provider()) } }
+            coroutineScope.launch { collectLatest { sidebar.updateLineContent(id, provider()) } }
             tracked.add(this)
             return value
         }
@@ -45,7 +44,9 @@ class ReactiveSidebar(
     }
 
     operator fun Line.unaryPlus() {
-        sidebar.createLine(Sidebar.ScoreboardLine(id, provider(), line, Sidebar.NumberFormat.blank()))
+        sidebar.createLine(
+            Sidebar.ScoreboardLine(id, provider(), line, Sidebar.NumberFormat.blank())
+        )
     }
 
     override fun addViewer(player: Player): Boolean = sidebar.addViewer(player)
