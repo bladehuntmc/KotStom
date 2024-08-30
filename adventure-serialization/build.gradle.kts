@@ -3,8 +3,8 @@ plugins { kotlin("plugin.serialization") version "2.0.0" }
 repositories { mavenCentral() }
 
 dependencies {
-    implementation(libs.adventure.nbt)
-    implementation(libs.kotlinx.serialization.core)
+    compileOnly(libs.minestom)
+    api(libs.kotlinx.serialization.core)
 
     testImplementation(libs.minestom)
     testImplementation(libs.bundles.test)
