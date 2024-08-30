@@ -1,26 +1,30 @@
 package net.bladehunt.kotstom.extras.util
 
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import net.kyori.adventure.text.Component
 import net.minestom.server.Viewable
 import net.minestom.server.entity.Player
 import net.minestom.server.scoreboard.Sidebar
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.coroutines.CoroutineContext
 
 /**
- * A Sidebar with automatic line placements
+ * A reactive sidebar. Currently only supports [kotlinx.coroutines.flow.StateFlow] as a state
+ * provider
  *
- * @param title The original title of the Sidebar
+ * @param title The sidebar's title
  * @author oglassdev
  */
 class ReactiveSidebar(
     title: Component = Component.empty(),
     coroutineContext: CoroutineContext = Dispatchers.Default,
 ) : Viewable {
-    private val sidebar: Sidebar = Sidebar(title)
+    val sidebar: Sidebar = Sidebar(title)
     private val lastLine: AtomicInteger = AtomicInteger(-1)
     private val coroutineScope: CoroutineScope = CoroutineScope(coroutineContext + SupervisorJob())
 
