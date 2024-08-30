@@ -10,8 +10,7 @@ import net.minestom.server.inventory.Inventory
 import net.minestom.server.inventory.InventoryType
 
 /**
- * A ContainerInventory with an `EventNode`. These `EventNode`s are never registered anywhere,
- * meaning that they are cleaned up properly.
+ * A ContainerInventory with an [net.minestom.server.event.EventNode].
  *
  * @param inventoryType The type of the inventory
  * @param title The inventory's title
