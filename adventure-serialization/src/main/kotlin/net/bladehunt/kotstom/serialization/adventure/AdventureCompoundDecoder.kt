@@ -17,7 +17,7 @@ internal class AdventureCompoundDecoder(
     override val adventureNbt: AdventureNbt,
     private val compound: CompoundBinaryTag
 ) : TaggedAdventureDecoder() {
-    private var index = -1
+    private var index = 0
 
     override fun decodeTaggedBinaryTag(tag: String): BinaryTag = compound[tag]!!
 
@@ -43,15 +43,23 @@ internal class AdventureCompoundDecoder(
         decodeTaggedInt(tag)
 
     override fun decodeElementIndex(descriptor: SerialDescriptor): Int {
-        index++
-        return if (index >= descriptor.elementsCount) CompositeDecoder.DECODE_DONE else index
+        while (index < descriptor.elementsCount) {
+            val name = descriptor.getTag(index++)
+            val index = index - 1
+            val optional = descriptor.isElementOptional(index)
+            if (!optional) return index
+            else if (compound.keySet().contains(name)) return index
+        }
+        return CompositeDecoder.DECODE_DONE
     }
 
     override fun <T> decodeSerializableValue(deserializer: DeserializationStrategy<T>): T {
         if (deserializer !is AbstractPolymorphicSerializer<*>)
             return super.decodeSerializableValue(deserializer)
 
-        val compound = if (currentTagOrNull != null) compound.getCompound(currentTag) else compound
+        val compound = if (currentTagOrNull != null) {
+            compound.getCompound(popTag())
+        } else compound
 
         val decoder = AdventureCompoundDecoder(adventureNbt, compound)
         val type = decoder.decodeTaggedString(adventureNbt.discriminator)
@@ -68,10 +76,11 @@ internal class AdventureCompoundDecoder(
 
         return when (descriptor.kind) {
             is StructureKind.LIST -> {
-                AdventureListDecoder(adventureNbt, compound.getList(currentTag))
+                AdventureListDecoder(adventureNbt, compound.getList(popTag()))
             }
+
             else -> {
-                AdventureCompoundDecoder(adventureNbt, compound.getCompound(currentTag))
+                AdventureCompoundDecoder(adventureNbt, compound.getCompound(popTag()))
             }
         }
     }

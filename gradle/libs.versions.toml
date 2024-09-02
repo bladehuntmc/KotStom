@@ -3,7 +3,7 @@ minestom = "480a7dcaa2"
 adventure = "4.17.0"
 kotlin-reflect = "2.0.0"
 kotlinx-coroutines = "1.9.0-RC.2"
-kotlinx-serialization = "1.7.1"
+kotlinx-serialization = "1.7.2"
 kotest = "5.9.1"
 minestompvp = "78093fd18b"
 
