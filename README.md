@@ -42,9 +42,6 @@ implementation("net.bladehunt:kotstom:<version>")
 - MinecraftServer
     - Each registry and manager has a corresponding `inline val`
         - e.g. `CommandManager` means `MinecraftServer.getCommandManager()`
-- Utils
-    - EventNodeInventory
-        - An inventory with an event node.
 
 ### adventure-serialization
 

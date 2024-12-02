@@ -11,5 +11,4 @@ dependencies {
 
     implementation(project(":"))
     implementation(project(":adventure-serialization"))
-    implementation(project(":extras"))
 }

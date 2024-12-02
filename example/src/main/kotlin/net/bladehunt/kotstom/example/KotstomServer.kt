@@ -8,9 +8,11 @@ import net.bladehunt.kotstom.dsl.instance.buildInstance
 import net.bladehunt.kotstom.dsl.instance.generator
 import net.bladehunt.kotstom.dsl.instance.modify
 import net.bladehunt.kotstom.dsl.listen
-import net.bladehunt.kotstom.example.command.*
+import net.bladehunt.kotstom.example.command.ItemCommand
+import net.bladehunt.kotstom.example.command.ParticleCommand
+import net.bladehunt.kotstom.example.command.RunnableCommand
+import net.bladehunt.kotstom.example.command.SuspendingCommand
 import net.bladehunt.kotstom.extension.adventure.text
-import net.bladehunt.kotstom.extension.register
 import net.kyori.adventure.text.format.TextDecoration
 import net.minestom.server.MinecraftServer
 import net.minestom.server.coordinate.Pos
@@ -46,7 +48,8 @@ fun main() {
     }
 
     CommandManager.register(
-        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand, ReactiveSidebarCommand)
+        ItemCommand, ParticleCommand, RunnableCommand, SuspendingCommand
+    )
 
     minecraftServer.start("127.0.0.1", 25565)
 }
