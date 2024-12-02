@@ -1,4 +1,6 @@
-plugins { kotlin("plugin.serialization") version "2.0.0" }
+plugins {
+    alias(libs.plugins.kotlin.serialization)
+}
 
 repositories { mavenCentral() }
 

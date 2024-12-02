@@ -7,7 +7,7 @@ repositories {
 
 dependencies {
     compileOnly(libs.minestom)
-    compileOnly(libs.minestompvp)
+    // compileOnly(libs.minestompvp)
     compileOnly(libs.kotlinx.coroutines)
 
     testImplementation(project(":"))
