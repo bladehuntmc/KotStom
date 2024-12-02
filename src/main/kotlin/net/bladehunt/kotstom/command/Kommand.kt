@@ -3,7 +3,7 @@ package net.bladehunt.kotstom.command
 import net.minestom.server.command.builder.Command
 
 /**
- * A `Command` implementation that gets generated from the `Kommand` builder DSL
+ * Kommand marker class for proper DSL support.
  *
  * @author oglassdev
  */

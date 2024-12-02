@@ -1,10 +1,9 @@
 package net.bladehunt.kotstom.dsl.kommand
 
-import java.util.function.Function
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import net.bladehunt.kotstom.command.Kommand
 import net.bladehunt.kotstom.command.KommandConditionContext
 import net.bladehunt.kotstom.command.KommandExecutorContext
 import net.bladehunt.kotstom.command.KommandSyntax
@@ -15,6 +14,8 @@ import net.minestom.server.command.builder.CommandSyntax
 import net.minestom.server.command.builder.arguments.Argument
 import net.minestom.server.command.builder.condition.CommandCondition
 import net.minestom.server.entity.Player
+import java.util.function.Function
+import kotlin.coroutines.CoroutineContext
 
 /**
  * `CommandSyntax` builder DSL
@@ -28,7 +29,7 @@ import net.minestom.server.entity.Player
 data class SyntaxBuilder(
     val conditions: MutableList<CommandCondition> = arrayListOf(),
     var executor: CommandExecutor? = null,
-    val defaultValues: MutableMap<String, Function<CommandSender, Any?>> = hashMapOf(),
+    val defaultValues: MutableMap<String, Function<CommandSender, Any>> = hashMapOf(),
     val arguments: MutableList<Argument<*>> = arrayListOf()
 ) {
     /**
@@ -53,8 +54,8 @@ data class SyntaxBuilder(
         crossinline block: @KommandDSL KommandConditionContext.() -> Boolean
     ): CommandCondition =
         CommandCondition { commandSender, input ->
-                KommandConditionContext(commandSender, input).block()
-            }
+            KommandConditionContext(commandSender, input).block()
+        }
             .also { conditions += it }
 
     /**
@@ -69,8 +70,8 @@ data class SyntaxBuilder(
         crossinline block: @KommandDSL KommandExecutorContext.() -> Unit
     ): CommandExecutor =
         CommandExecutor { commandSender, commandContext ->
-                KommandExecutorContext(commandSender, commandContext).block()
-            }
+            KommandExecutorContext(commandSender, commandContext).block()
+        }
             .also { executor = it }
 
     /**
@@ -86,8 +87,8 @@ data class SyntaxBuilder(
         crossinline block: @KommandDSL suspend KommandExecutorContext.() -> Unit
     ) =
         CommandExecutor { sender, ctx ->
-                CoroutineScope(context).launch { KommandExecutorContext(sender, ctx).block() }
-            }
+            CoroutineScope(context).launch { KommandExecutorContext(sender, ctx).block() }
+        }
             .also { executor = it }
 
     /**
@@ -102,9 +103,26 @@ data class SyntaxBuilder(
         crossinline block: @KommandDSL suspend KommandExecutorContext.() -> Unit
     ) =
         CommandExecutor { sender, ctx ->
-                runBlocking { KommandExecutorContext(sender, ctx).block() }
-            }
+            runBlocking { KommandExecutorContext(sender, ctx).block() }
+        }
             .also { executor = it }
+
+    /**
+     * Sets a default value for a command argument
+     *
+     * @param key The argument key
+     * @param block The function to provide the default value
+     * @return The function providing the default value
+     * @author oglassdev
+     */
+    @KommandDSL
+    inline fun <T> default(
+        argument: Argument<T>,
+        crossinline block: @KommandDSL (CommandSender) -> T
+    ): Function<CommandSender, T> =
+        Function<CommandSender, T> { sender -> block(sender) }.also {
+            defaultValues[argument.id] = it as Function<CommandSender, Any>
+        }
 
     /**
      * Sets a default value for a command argument
@@ -117,9 +135,9 @@ data class SyntaxBuilder(
     @KommandDSL
     inline fun default(
         key: String,
-        crossinline block: @KommandDSL (CommandSender) -> Any?
-    ): Function<CommandSender, Any?> =
-        Function<CommandSender, Any?> { sender -> block(sender) }.also { defaultValues[key] = it }
+        crossinline block: @KommandDSL (CommandSender) -> Any
+    ): Function<CommandSender, Any> =
+        Function<CommandSender, Any> { sender -> block(sender) }.also { defaultValues[key] = it }
 
     /**
      * Builds the command syntax from the provided conditions, executor, and arguments
@@ -157,23 +175,23 @@ data class SyntaxBuilder(
  * @author oglassdev
  */
 @KommandDSL
-inline fun KommandBuilder.syntax(
+inline fun Kommand.syntax(
     vararg arguments: Argument<*>,
     crossinline condition: @KommandDSL (sender: CommandSender, label: String?) -> Boolean =
         { _, _ ->
             true
         },
-    defaultValues: Map<String, Function<CommandSender, Any?>> = emptyMap(),
+    defaultValues: Map<String, Function<CommandSender, Any>> = emptyMap(),
     crossinline block: @KommandDSL KommandExecutorContext.() -> Unit,
 ) =
     KommandSyntax(
-            commandCondition = { sender, label -> condition(sender, label) },
-            commandExecutor = { sender, context ->
-                KommandExecutorContext(sender, context).block()
-            },
-            defaultValues = defaultValues,
-            args = arguments
-        )
+        commandCondition = { sender, label -> condition(sender, label) },
+        commandExecutor = { sender, context ->
+            KommandExecutorContext(sender, context).block()
+        },
+        defaultValues = defaultValues,
+        args = arguments
+    )
         .let { syntaxes.add(it) }
 
 /**
@@ -184,7 +202,7 @@ inline fun KommandBuilder.syntax(
  * @author oglassdev
  */
 @KommandDSL
-inline fun KommandBuilder.buildSyntax(
+inline fun Kommand.buildSyntax(
     vararg arguments: Argument<*>,
     block: @KommandDSL SyntaxBuilder.() -> Unit
 ) =
@@ -200,7 +218,7 @@ inline fun KommandBuilder.buildSyntax(
  * @author oglassdev
  */
 @KommandDSL
-inline fun KommandBuilder.buildSyntax(block: @KommandDSL SyntaxBuilder.() -> Unit) =
+inline fun Kommand.buildSyntax(block: @KommandDSL SyntaxBuilder.() -> Unit) =
     SyntaxBuilder().let {
         it.block()
         syntaxes.add(it.build())
