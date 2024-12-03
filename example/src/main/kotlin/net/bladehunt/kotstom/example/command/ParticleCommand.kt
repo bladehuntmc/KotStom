@@ -6,18 +6,20 @@ import net.bladehunt.kotstom.dsl.kommand.kommand
 import net.bladehunt.kotstom.dsl.particle
 import net.minestom.server.command.builder.arguments.minecraft.registry.ArgumentParticle
 import net.minestom.server.command.builder.arguments.number.ArgumentInteger
+import net.minestom.server.entity.Player
 
 val ParticleCommand = kommand("particle") {
     val particleArg = ArgumentParticle("particle_id")
     val countArg = ArgumentInteger("count")
 
-    defaultExecutor { sender.sendMessage("Please provide arguments.") }
+    defaultExecutor { sender -> sender.sendMessage("Please provide arguments.") }
 
     buildSyntax(particleArg) {
         onlyPlayers()
 
-        executor {
-            this.context
+        executor { player ->
+            player as Player
+
             player.instance.sendGroupedPacket(
                 particle {
                     position = player.position
@@ -28,7 +30,9 @@ val ParticleCommand = kommand("particle") {
     }
     buildSyntax(particleArg, countArg) {
         onlyPlayers()
-        executor {
+        executor { player ->
+            player as Player
+
             player.instance.sendGroupedPacket(
                 particle {
                     position = player.position
