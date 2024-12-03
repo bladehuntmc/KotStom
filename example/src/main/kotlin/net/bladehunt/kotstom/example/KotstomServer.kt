@@ -3,6 +3,7 @@ package net.bladehunt.kotstom.example
 import kotlinx.coroutines.delay
 import net.bladehunt.kotstom.CommandManager
 import net.bladehunt.kotstom.GlobalEventHandler
+import net.bladehunt.kotstom.coroutines.asyncHandler
 import net.bladehunt.kotstom.dsl.builder
 import net.bladehunt.kotstom.dsl.instance.buildInstance
 import net.bladehunt.kotstom.dsl.instance.generator
