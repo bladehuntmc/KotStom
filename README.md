@@ -35,16 +35,12 @@ implementation("net.bladehunt:kotstom:<version>")
 - DSLs
     - Kommand (`kommand`) - Easier commands w/ delegates
     - Item (`item`) - Item builder
-    - KBar (`kbar`) - Advanced sidebar
     - Particle (`particle`) - Particle packet builder
     - Event (`listen, buildListener`) - Better kotlin support with reified type parameters and better builders
     - Instance (`buildInstance`) - InstanceContainer builder
 - MinecraftServer
     - Each registry and manager has a corresponding `inline val`
         - e.g. `CommandManager` means `MinecraftServer.getCommandManager()`
-- Utils
-    - EventNodeInventory
-        - An inventory with an event node.
 
 ### adventure-serialization
 

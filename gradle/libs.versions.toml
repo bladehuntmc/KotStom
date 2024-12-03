@@ -1,30 +1,28 @@
 [versions]
-minestom = "480a7dcaa2"
+kotlin = "2.1.0"
+minestom = "ba55b05e14"
 adventure = "4.17.0"
-kotlin-reflect = "2.0.0"
-kotlinx-coroutines = "1.9.0-RC.2"
-kotlinx-serialization = "1.7.2"
+kotlinx-coroutines = "1.9.0"
+kotlinx-serialization = "1.7.3"
 kotest = "5.9.1"
-minestompvp = "78093fd18b"
 
-shadow = "8.1.8"
+shadow = "8.3.5"
 dokka = "1.9.20"
 
 [plugins]
-shadow = { id = "io.github.goooler.shadow", version.ref = "shadow" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
 [libraries]
 minestom = { group = "net.minestom", name = "minestom-snapshots", version.ref = "minestom" }
-adventure-nbt = { group = "net.kyori", name = "adventure-nbt", version.ref = "adventure" }
 adventure-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventure" }
-kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin-reflect" }
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotest-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-junit = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
-minestompvp = { module = "com.github.TogAr2:MinestomPvP", version.ref = "minestompvp" }
 
 [bundles]
 test = ["kotest-core", "kotest-junit"]

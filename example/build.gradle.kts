@@ -1,4 +1,6 @@
-plugins { kotlin("plugin.serialization") version "2.0.0" }
+plugins {
+    alias(libs.plugins.kotlin.serialization)
+}
 
 dependencies {
     implementation(libs.minestom)
@@ -9,5 +11,4 @@ dependencies {
 
     implementation(project(":"))
     implementation(project(":adventure-serialization"))
-    implementation(project(":extras"))
 }

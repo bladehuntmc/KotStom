@@ -1,10 +1,8 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.0"
-    alias(libs.plugins.shadow)
+    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.dokka)
 
     `maven-publish`
@@ -50,15 +48,7 @@ dependencies {
     testImplementation(libs.bundles.test)
 }
 
-tasks.named<ShadowJar>("shadowJar") {
-    archiveBaseName.set("kotstom")
-    mergeServiceFiles()
-    minimize()
-}
-
 tasks.withType<Test> { useJUnitPlatform() }
-
-tasks.build { dependsOn("shadowJar") }
 
 java { withSourcesJar() }
 
