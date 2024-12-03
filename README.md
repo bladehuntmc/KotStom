@@ -89,15 +89,4 @@ This module contains some kotlinx.serialization serializers for Minestom.
     - MinestomConfigModule
         - Prefers more human-readable serializers
 
-### extras
-
-Things that shouldn't just be an extension.
-
-```kotlin
-implementation("net.bladehunt:kotstom-extras:<version>")
-```
-
-- EventNodeInventory - An inventory with a mapped EventNode
-- ReactiveSidebar - A sidebar the uses kotlinx.coroutines. Currently only supports StateFlows.
-
 ### For more information, visit [the wiki](https://www.bladehunt.net/developers/kotstom) or view [the example](example/src/main/kotlin)
