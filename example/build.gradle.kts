@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.serialization)
+    id("buildlogic.common")
 }
 
 dependencies {
