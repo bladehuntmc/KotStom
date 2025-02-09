@@ -1,6 +1,7 @@
 name: Publish project to Maven repository
-# Publish when releasing a new version
+# Publish when releasing a new version or manually
 on:
+  workflow_dispatch:
   release:
     types: [ published ]
 jobs:
@@ -18,5 +19,5 @@ jobs:
       - name: Publish with Gradle
         run: ./gradlew build publish
         env:
-          MAVEN_NAME: ${{ secrets.REPOSILITE_NAME }}
-          MAVEN_SECRET: ${{ secrets.REPOSILITE_SECRET }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
