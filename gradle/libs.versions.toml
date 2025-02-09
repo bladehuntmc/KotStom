@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.1.10"
 minestom = "96cedb1bab"
-adventure = "4.18.0"
+adventure = "4.17.0"
 kotlinx-coroutines = "1.9.0"
 kotlinx-serialization = "1.8.0"
 kotest = "5.9.1"
