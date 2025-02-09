@@ -4,15 +4,15 @@
 
 ### Adding as a dependency (Gradle)
 
-First, add the Bladehunt maven repo to the repositories
+First, make sure that `mavenCentral()` is in your `build.gradle.kts`
 
 ```kotlin
 repositories {
-    maven("https://mvn.bladehunt.net/releases")
+    mavenCentral()
 }
 ```
 
-The latest version can be found [here](https://mvn.bladehunt.net/#/releases/net/bladehunt/kotstom).
+The latest version can be found [here](https://github.com/bladehuntmc/KotStom/releases).
 
 ## Module Overview
 
