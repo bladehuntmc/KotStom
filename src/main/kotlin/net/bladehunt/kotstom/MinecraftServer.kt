@@ -16,16 +16,13 @@ import net.minestom.server.instance.block.banner.BannerPattern
 import net.minestom.server.instance.block.jukebox.JukeboxSong
 import net.minestom.server.item.armor.TrimMaterial
 import net.minestom.server.item.armor.TrimPattern
-import net.minestom.server.item.enchant.Enchantment
-import net.minestom.server.item.enchant.EntityEffect
-import net.minestom.server.item.enchant.LevelBasedValue
-import net.minestom.server.item.enchant.LocationEffect
-import net.minestom.server.item.enchant.ValueEffect
+import net.minestom.server.item.enchant.*
 import net.minestom.server.listener.manager.PacketListenerManager
 import net.minestom.server.message.ChatType
 import net.minestom.server.monitoring.BenchmarkManager
 import net.minestom.server.network.ConnectionManager
-import net.minestom.server.network.PacketProcessor
+import net.minestom.server.network.packet.PacketParser
+import net.minestom.server.network.packet.client.ClientPacket
 import net.minestom.server.recipe.RecipeManager
 import net.minestom.server.registry.DynamicRegistry
 import net.minestom.server.scoreboard.TeamManager
@@ -70,8 +67,8 @@ inline val ConnectionManager: ConnectionManager
 inline val BossBarManager: BossBarManager
     get() = getBossBarManager()
 
-inline val PacketProcessor: PacketProcessor
-    get() = getPacketProcessor()
+inline val ClientPacketParser: PacketParser<ClientPacket>
+    get() = getPacketParser()
 
 inline val AdvancementManager: AdvancementManager
     get() = getAdvancementManager()
