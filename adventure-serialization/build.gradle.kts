@@ -55,10 +55,11 @@ publishing {
 
     repositories {
         maven {
-            url =
-                rootProject.projectDir
-                    .resolve("build/staging-deploy")
-                    .toURI()
+            rootProject.layout.buildDirectory
+                .dir("staging-deploy")
+                .get()
+                .asFile
+                .toURI()
         }
     }
 }

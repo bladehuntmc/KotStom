@@ -62,13 +62,25 @@ publishing {
         repositories {
             maven {
                 url =
-                    rootProject.projectDir
-                        .resolve("build/staging-deploy")
+                    rootProject.layout.buildDirectory
+                        .dir("staging-deploy")
+                        .get()
+                        .asFile
                         .toURI()
             }
         }
     }
 }
+
+tasks.assemble {
+    doFirst {
+        mkdir(
+            rootProject.layout.buildDirectory
+                .dir("jreleaser"),
+        )
+    }
+}
+
 jreleaser {
     signing {
         active = Active.ALWAYS
