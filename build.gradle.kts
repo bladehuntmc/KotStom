@@ -1,41 +1,9 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jreleaser.model.Active
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.dokka)
-
+    id("buildlogic.common")
     `maven-publish`
-}
-
-allprojects {
-    group = property("group") ?: "net.bladehunt"
-    version = property("version") ?: "0.1.0"
-
-    repositories {
-        mavenCentral()
-
-        maven("https://jitpack.io")
-        maven("https://repo.spongepowered.org/maven")
-        maven("https://repo.velocitypowered.com/snapshots/")
-    }
-
-    tasks.withType<JavaCompile> {
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
-    }
-
-    tasks.withType<KotlinCompile> {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
-            compilerOptions { freeCompilerArgs.addAll("-Xinline-classes", "-Xcontext-receivers") }
-        }
-    }
-}
-
-subprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "maven-publish")
+    id("org.jreleaser")
 }
 
 dependencies {
@@ -57,17 +25,64 @@ publishing {
         create<MavenPublication>("library") {
             from(components["java"])
             artifactId = "kotstom"
+
+            pom {
+                name = "KotStom"
+                description = "Kotlin extensions for Minestom"
+                url = "https://github.com/bladehuntmc/KotStom"
+
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "http://www.opensource.org/licenses/mit-license.php"
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = "oglass"
+                        name = "oglass"
+                        email = "him@oglass.dev"
+                    }
+                }
+
+                issueManagement {
+                    system = "GitHub"
+                    url = "https://github.com/bladehuntmc/KotStom/issues"
+                }
+
+                scm {
+                    connection = "scm:git:git:github.com/bladehuntmc/KotStom.git"
+                    developerConnection = "scm:git:https://github.com/bladehuntmc/KotStom.git"
+                    url = "https://github.com/bladehuntmc/KotStom"
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                url =
+                    rootProject.projectDir
+                        .resolve("build/staging-deploy")
+                        .toURI()
+            }
         }
     }
-    repositories {
+}
+jreleaser {
+    signing {
+        active = Active.ALWAYS
+        armored = true
+    }
+    deploy {
         maven {
-            name = "releases"
-            url = uri("https://mvn.bladehunt.net/releases")
-            credentials(PasswordCredentials::class) {
-                username = System.getenv("MAVEN_NAME")
-                password = System.getenv("MAVEN_SECRET")
+            mavenCentral {
+                create("sonatype") {
+                    active = Active.ALWAYS
+                    url = "https://central.sonatype.com/api/v1/publisher"
+                    stagingRepository("build/staging-deploy")
+                }
             }
-            authentication { create<BasicAuthentication>("basic") }
         }
     }
 }

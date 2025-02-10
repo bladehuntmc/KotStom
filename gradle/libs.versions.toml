@@ -1,19 +1,14 @@
 [versions]
-kotlin = "2.1.0"
-minestom = "ba55b05e14"
+kotlin = "2.1.10"
+minestom = "96cedb1bab"
 adventure = "4.17.0"
 kotlinx-coroutines = "1.9.0"
-kotlinx-serialization = "1.7.3"
+kotlinx-serialization = "1.8.0"
 kotest = "5.9.1"
 
 shadow = "8.3.5"
-dokka = "1.9.20"
-
-[plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+dokka = "2.0.0"
+jreleaser = "1.16.0"
 
 [libraries]
 minestom = { group = "net.minestom", name = "minestom-snapshots", version.ref = "minestom" }
@@ -23,6 +18,12 @@ kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotest-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-junit = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
+
+plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+plugin-shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
+plugin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+plugin-jreleaser = { module = "org.jreleaser:org.jreleaser.gradle.plugin", version.ref = "jreleaser" }
+plugin-dokka = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
 
 [bundles]
 test = ["kotest-core", "kotest-junit"]
