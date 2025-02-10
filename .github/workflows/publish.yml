@@ -1,14 +1,18 @@
-name: Publish project to Maven repository
-# Publish when releasing a new version or manually
+name: Publish project to Maven Central
+
 on:
   workflow_dispatch:
-  release:
-    types: [ published ]
+
 jobs:
-  publish:
+  release:
+    name: Release
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -16,8 +20,14 @@ jobs:
           distribution: temurin
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Publish with Gradle
-        run: ./gradlew build publish
+      - name: Build and publish locally
+        run: ./gradlew publish
+      - name: Release to Maven Central
         env:
           JRELEASER_MAVENCENTRAL_sonatype_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           JRELEASER_MAVENCENTRAL_sonatype_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
+          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
+          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew jreleaserPrepare jreleaserFullRelease
