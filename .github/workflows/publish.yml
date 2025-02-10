@@ -19,5 +19,5 @@ jobs:
       - name: Publish with Gradle
         run: ./gradlew build publish
         env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          JRELEASER_MAVENCENTRAL_sonatype_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          JRELEASER_MAVENCENTRAL_sonatype_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}

@@ -8,7 +8,7 @@ kotest = "5.9.1"
 
 shadow = "8.3.5"
 dokka = "2.0.0"
-nexus-publish = "2.0.0"
+jreleaser = "1.16.0"
 
 [libraries]
 minestom = { group = "net.minestom", name = "minestom-snapshots", version.ref = "minestom" }
@@ -22,7 +22,7 @@ kotest-junit = { group = "io.kotest", name = "kotest-runner-junit5", version.ref
 plugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 plugin-shadow = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
 plugin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
-plugin-nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }
+plugin-jreleaser = { module = "org.jreleaser:org.jreleaser.gradle.plugin", version.ref = "jreleaser" }
 plugin-dokka = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
 
 [bundles]

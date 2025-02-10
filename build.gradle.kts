@@ -1,7 +1,9 @@
+import org.jreleaser.model.Active
+
 plugins {
     id("buildlogic.common")
     `maven-publish`
-    id("io.github.gradle-nexus.publish-plugin")
+    id("org.jreleaser")
 }
 
 dependencies {
@@ -56,17 +58,31 @@ publishing {
                 }
             }
         }
+
+        repositories {
+            maven {
+                url =
+                    rootProject.projectDir
+                        .resolve("build/staging-deploy")
+                        .toURI()
+            }
+        }
     }
 }
-
-nexusPublishing {
-    repositories {
-        sonatype {
-            username = System.getenv("SONATYPE_USERNAME")
-            password = System.getenv("SONATYPE_PASSWORD")
-
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+jreleaser {
+    signing {
+        active = Active.ALWAYS
+        armored = true
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                create("sonatype") {
+                    active = Active.ALWAYS
+                    url = "https://central.sonatype.com/api/v1/publisher"
+                    stagingRepository("build/staging-deploy")
+                }
+            }
         }
     }
 }

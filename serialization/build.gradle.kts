@@ -52,4 +52,13 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            url =
+                rootProject.projectDir
+                    .resolve("build/staging-deploy")
+                    .toURI()
+        }
+    }
 }

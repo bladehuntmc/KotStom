@@ -13,8 +13,6 @@ dependencies {
 
 tasks.test { useJUnitPlatform() }
 
-java { withSourcesJar() }
-
 publishing {
     publications {
         create<MavenPublication>("library") {
@@ -52,6 +50,15 @@ publishing {
                     url = "https://github.com/bladehuntmc/KotStom"
                 }
             }
+        }
+    }
+
+    repositories {
+        maven {
+            url =
+                rootProject.projectDir
+                    .resolve("build/staging-deploy")
+                    .toURI()
         }
     }
 }
